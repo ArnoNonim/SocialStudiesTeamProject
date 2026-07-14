@@ -1,66 +1,91 @@
+using KimLIb.ModuleSystems;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace _00_Members.KYM.Scripts.Agents
 {
-    [RequireComponent(typeof(NavMeshAgent))]
-    public class SoldierMover : MonoBehaviour
+    public class SoldierMover : MonoBehaviour, IModule
     {
-        [Header("Movement")]
-        [SerializeField] private float walkSpeed = 1.8f;
-        [SerializeField] private float runSpeed = 4.5f;
+        [SerializeField] private float walkNavigationSpeed = 1.8f;
+        [SerializeField] private float runNavigationSpeed = 4.5f;
         [SerializeField] private float rotationSpeed = 540f;
         [SerializeField] private float arrivalDistance = 0.15f;
-
-        [Header("Flee")]
+        
         [SerializeField] private float fleeDistance = 12f;
         [SerializeField] private float navMeshSearchRadius = 4f;
 
-        private NavMeshAgent agent;
+        private ModuleOwner _owner;
+        private NavMeshAgent _agent;
+        private Animator animator;
         private Transform lookTarget;
+        private Vector3 rootMotionVelocity;
 
-        public Vector3 Velocity => agent.velocity;
+        public Vector3 Velocity => rootMotionVelocity;
+        public bool IsMoving => _agent != null && _agent.isOnNavMesh && !_agent.isStopped && _agent.hasPath;
+        public bool IsRunning { get; private set; }
 
         public bool HasArrived =>
-            agent.isOnNavMesh &&
-            !agent.pathPending &&
-            agent.remainingDistance <= agent.stoppingDistance + arrivalDistance;
+            _agent != null &&
+            _agent.isOnNavMesh &&
+            (_agent.isStopped ||
+             (!_agent.pathPending &&
+              _agent.hasPath &&
+              _agent.remainingDistance <= _agent.stoppingDistance + arrivalDistance));
 
-        private void Awake()
+        public void Initialize(ModuleOwner moduleOwner)
         {
-            agent = GetComponent<NavMeshAgent>();
-            agent.updateRotation = false;
+            _owner = moduleOwner;
+            _agent = _owner.GetComponent<NavMeshAgent>();
+            animator = _owner.GetComponentInChildren<Animator>();
+
+            _agent.updatePosition = false;
+            _agent.updateRotation = false;
+            _agent.nextPosition = _owner.transform.position;
         }
 
         private void Update()
         {
+            rootMotionVelocity = Vector3.zero;
+
+            if (_agent == null || !_agent.isOnNavMesh)
+                return;
+
+            _agent.nextPosition = _owner.transform.position;
+
             if (lookTarget != null)
+            {
                 RotateTowards(lookTarget.position);
-            else if (agent.velocity.sqrMagnitude > 0.01f)
-                RotateTowards(transform.position + agent.velocity);
+                return;
+            }
+
+            if (IsMoving)
+                RotateTowards(_agent.steeringTarget);
         }
 
         public bool MoveTo(Vector3 destination, bool run = false)
         {
-            if (!agent.isOnNavMesh)
+            if (_agent == null || !_agent.isOnNavMesh)
                 return false;
 
             lookTarget = null;
-            agent.speed = run ? runSpeed : walkSpeed;
-            agent.isStopped = false;
+            IsRunning = run;
+            _agent.speed = run ? runNavigationSpeed : walkNavigationSpeed;
+            _agent.isStopped = false;
 
-            return agent.SetDestination(destination);
+            return _agent.SetDestination(destination);
         }
 
         public void Stop()
         {
             lookTarget = null;
+            IsRunning = false;
 
-            if (!agent.isOnNavMesh)
+            if (_agent == null || !_agent.isOnNavMesh)
                 return;
 
-            agent.isStopped = true;
-            agent.ResetPath();
+            _agent.isStopped = true;
+            _agent.ResetPath();
+            _agent.nextPosition = _owner.transform.position;
         }
 
         public void LookAt(Transform target)
@@ -71,14 +96,13 @@ namespace _00_Members.KYM.Scripts.Agents
 
         public bool FleeFrom(Vector3 threatPosition)
         {
-            Vector3 direction = transform.position - threatPosition;
+            Vector3 direction = _owner.transform.position - threatPosition;
             direction.y = 0f;
 
             if (direction.sqrMagnitude < 0.01f)
-                direction = -transform.forward;
+                direction = -_owner.transform.forward;
 
-            Vector3 candidate = transform.position +
-                                direction.normalized * fleeDistance;
+            Vector3 candidate = _owner.transform.position + direction.normalized * fleeDistance;
 
             if (!NavMesh.SamplePosition(
                     candidate,
@@ -92,18 +116,36 @@ namespace _00_Members.KYM.Scripts.Agents
             return MoveTo(hit.position, true);
         }
 
+        internal void ApplyRootMotion(Vector3 deltaPosition)
+        {
+            if (!IsMoving || Time.deltaTime <= 0f)
+            {
+                rootMotionVelocity = Vector3.zero;
+                return;
+            }
+
+            Vector3 motion = deltaPosition;
+            motion.y = 0f;
+
+            _owner.transform.position += motion;
+            _agent.nextPosition = _owner.transform.position;
+            rootMotionVelocity = motion / Time.deltaTime;
+
+            if (HasArrived)
+                Stop();
+        }
+
         private void RotateTowards(Vector3 position)
         {
-            Vector3 direction = position - transform.position;
+            Vector3 direction = position - _owner.transform.position;
             direction.y = 0f;
 
             if (direction.sqrMagnitude < 0.001f)
                 return;
 
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
+            _owner.transform.rotation = Quaternion.RotateTowards(
+                _owner.transform.rotation,
                 targetRotation,
                 rotationSpeed * Time.deltaTime);
         }

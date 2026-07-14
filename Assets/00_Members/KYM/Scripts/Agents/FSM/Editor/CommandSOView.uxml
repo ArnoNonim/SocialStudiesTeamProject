@@ -1,0 +1,5 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:TextField label="Command name" placeholder-text="상태의 이름을 대문자로 입력하세요" binding-path="commandName" name="StateNameField"/>
+    <ui:IntegerField label="Command Index" name="StateIndexField" binding-path="commandIndex"/>
+    <ui:DropdownField label="ClassName" name="ClassDropdownField" binding-path="className"/>
+</ui:UXML>
