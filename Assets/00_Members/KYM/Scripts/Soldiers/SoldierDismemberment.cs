@@ -21,6 +21,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [SerializeField] private float upwardBias = 0.22f;
         [SerializeField] private float randomDirection = 0.28f;
         [SerializeField] private float angularImpulse = 8f;
+        [SerializeField] private float partAngularDamping = 1.6f;
+        [SerializeField] private float maxPartAngularVelocity = 7f;
 
         [Header("Bleeding")]
         [SerializeField] private Material bloodMaterial;
@@ -82,6 +84,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
                     Destroy(section.Value);
                 }
             }
+
+            IgnorePartToPartCollisions(spawnedParts);
 
             foreach (Mesh generatedMesh in generatedMeshes)
             {
@@ -334,16 +338,14 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 children[i].SetPositionAndRotation(childPositions[i], childRotations[i]);
             }
 
-            BoxCollider collider = sectionRoot.AddComponent<BoxCollider>();
-            collider.size = new Vector3(
-                Mathf.Max(bounds.size.x, 0.05f),
-                Mathf.Max(bounds.size.y, 0.05f),
-                Mathf.Max(bounds.size.z, 0.05f));
+            AddSectionCollider(section, sectionRoot, bounds);
 
             Rigidbody rigidbody = sectionRoot.AddComponent<Rigidbody>();
             rigidbody.mass = section == BodySection.Torso ? 3.5f : 1.35f;
             rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            rigidbody.angularDamping = partAngularDamping;
+            rigidbody.maxAngularVelocity = maxPartAngularVelocity;
 
             Vector3 outward = bounds.center - explosionCenter;
             if (outward.sqrMagnitude < 0.001f)
@@ -354,10 +356,70 @@ namespace _00_Members.KYM.Scripts.Soldiers
             outward = (outward.normalized + Vector3.up * upwardBias +
                        UnityEngine.Random.insideUnitSphere * randomDirection).normalized;
             rigidbody.AddForce(outward * force * separationForceMultiplier, ForceMode.Impulse);
-            rigidbody.AddTorque(UnityEngine.Random.insideUnitSphere * angularImpulse, ForceMode.Impulse);
+            rigidbody.AddTorque(
+                UnityEngine.Random.insideUnitSphere * Mathf.Min(angularImpulse, 3.5f),
+                ForceMode.Impulse);
 
             AttachBleedingEmitters(section, sectionRoot, explosionCenter);
             return true;
+        }
+
+        private static void AddSectionCollider(BodySection section, GameObject sectionRoot, Bounds bounds)
+        {
+            Vector3 size = bounds.size;
+            if (section == BodySection.LeftArm || section == BodySection.RightArm ||
+                section == BodySection.LeftLeg || section == BodySection.RightLeg)
+            {
+                CapsuleCollider capsule = sectionRoot.AddComponent<CapsuleCollider>();
+                capsule.direction = GetLongestAxis(size);
+
+                float length = GetAxis(size, capsule.direction);
+                float widthA = GetAxis(size, (capsule.direction + 1) % 3);
+                float widthB = GetAxis(size, (capsule.direction + 2) % 3);
+                capsule.radius = Mathf.Max(Mathf.Min(widthA, widthB) * 0.32f, 0.025f);
+                capsule.height = Mathf.Max(length * 0.82f, capsule.radius * 2f);
+                return;
+            }
+
+            BoxCollider box = sectionRoot.AddComponent<BoxCollider>();
+            box.size = new Vector3(
+                Mathf.Max(size.x * 0.78f, 0.05f),
+                Mathf.Max(size.y * 0.78f, 0.05f),
+                Mathf.Max(size.z * 0.78f, 0.05f));
+        }
+
+        private static int GetLongestAxis(Vector3 size)
+        {
+            if (size.x >= size.y && size.x >= size.z)
+            {
+                return 0;
+            }
+
+            return size.y >= size.z ? 1 : 2;
+        }
+
+        private static float GetAxis(Vector3 value, int axis)
+        {
+            return axis == 0 ? value.x : axis == 1 ? value.y : value.z;
+        }
+
+        private static void IgnorePartToPartCollisions(List<GameObject> parts)
+        {
+            for (int i = 0; i < parts.Count; i++)
+            {
+                Collider[] firstPartColliders = parts[i].GetComponentsInChildren<Collider>();
+                for (int j = i + 1; j < parts.Count; j++)
+                {
+                    Collider[] secondPartColliders = parts[j].GetComponentsInChildren<Collider>();
+                    foreach (Collider firstCollider in firstPartColliders)
+                    {
+                        foreach (Collider secondCollider in secondPartColliders)
+                        {
+                            Physics.IgnoreCollision(firstCollider, secondCollider, true);
+                        }
+                    }
+                }
+            }
         }
 
         private void AttachBleedingEmitters(

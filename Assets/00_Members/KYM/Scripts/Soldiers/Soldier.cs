@@ -22,6 +22,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
 
         private Collider[] _rootColliders;
         private bool[] _initialRootColliderStates;
+        private Collider[] _originalColliders;
+        private bool[] _initialOriginalColliderStates;
         private Rigidbody _rootRigidbody;
         private readonly List<GameObject> _spawnedDeathObjects = new List<GameObject>();
         private Vector3 _initialLocalPosition;
@@ -49,6 +51,13 @@ namespace _00_Members.KYM.Scripts.Soldiers
             for (int i = 0; i < _rootColliders.Length; i++)
             {
                 _initialRootColliderStates[i] = _rootColliders[i].enabled;
+            }
+
+            _originalColliders = GetComponentsInChildren<Collider>(true);
+            _initialOriginalColliderStates = new bool[_originalColliders.Length];
+            for (int i = 0; i < _originalColliders.Length; i++)
+            {
+                _initialOriginalColliderStates[i] = _originalColliders[i].enabled;
             }
 
             _rootRigidbody = GetComponent<Rigidbody>();
@@ -102,6 +111,14 @@ namespace _00_Members.KYM.Scripts.Soldiers
             for (int i = 0; i < _rootColliders.Length; i++)
             {
                 _rootColliders[i].enabled = _initialRootColliderStates[i];
+            }
+
+            for (int i = 0; i < _originalColliders.Length; i++)
+            {
+                if (_originalColliders[i] != null)
+                {
+                    _originalColliders[i].enabled = _initialOriginalColliderStates[i];
+                }
             }
 
             if (_rootRigidbody != null)
@@ -160,6 +177,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
                         bodyHeadDirection,
                         force * 1.2f);
                     AttachDetachedHeadBleeding(bodyExplosionHead);
+                    DisableOriginalColliders();
 
                     if (Renderer?.Animator != null)
                     {
@@ -205,6 +223,17 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 _rootRigidbody.linearVelocity = Vector3.zero;
                 _rootRigidbody.angularVelocity = Vector3.zero;
                 _rootRigidbody.isKinematic = true;
+            }
+        }
+
+        private void DisableOriginalColliders()
+        {
+            foreach (Collider originalCollider in _originalColliders)
+            {
+                if (originalCollider != null)
+                {
+                    originalCollider.enabled = false;
+                }
             }
         }
 
