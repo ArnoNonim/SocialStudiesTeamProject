@@ -13,6 +13,7 @@ TagManager:
   - UI
   - 
   - 
+  - SnapHexGrid
   - 
   - 
   - 
@@ -31,9 +32,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Agent
+  - RagdollPart
   - 
   - 
   - 
