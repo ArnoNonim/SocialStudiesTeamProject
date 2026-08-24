@@ -26,8 +26,8 @@ namespace _00_Members.JYG._Scripts.UISystem.Quest
             if (goal >= maxGoal)
             {
                 questText.text = mainText;
-                questText.fontStyle |= FontStyles.Italic;
-                questText.color = Color.gray;
+                questText.fontStyle |= FontStyles.Strikethrough;
+                questText.color = Color.lightSlateGray;
             }
             else
                 questText.text = $"{mainText}\n ({goal}/{maxGoal})";
