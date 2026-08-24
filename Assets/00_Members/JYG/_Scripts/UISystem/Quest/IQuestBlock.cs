@@ -1,4 +1,4 @@
-namespace _00_Members.JYG._Scripts.UISystem
+namespace _00_Members.JYG._Scripts.UISystem.Quest
 {
     public interface IQuestBlock
     {

@@ -22,11 +22,12 @@ namespace _00_Members.JYG._Scripts.UISystem.Quest
 
         public void GoalPlus(int count)
         {
-            goal += count;
+            goal = Mathf.Clamp(count + goal, 0, maxGoal);
             if (goal >= maxGoal)
             {
-                questText.text = mainText; 
-                questText.color = Color.green;
+                questText.text = mainText;
+                questText.fontStyle |= FontStyles.Italic;
+                questText.color = Color.gray;
             }
             else
                 questText.text = $"{mainText}\n ({goal}/{maxGoal})";

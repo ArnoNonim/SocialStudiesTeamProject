@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.UISystem.Quest.QuestDataList
   questDataList:
   - {fileID: 11400000, guid: 4f0b3601ffa78db459976587cd532728, type: 2}
-  - {fileID: 11400000, guid: 4b71a655a266611488a09d2c0b7dd991, type: 2}
-  - {fileID: 11400000, guid: 052ff7f7ad54f294bb8e1463f9a3fd1a, type: 2}
+  - {fileID: 11400000, guid: 313a036fde7d0c24dab6aae720cbba9a, type: 2}
+  - {fileID: 11400000, guid: 313a036fde7d0c24dab6aae720cbba9a, type: 2}
