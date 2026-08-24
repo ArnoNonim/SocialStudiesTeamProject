@@ -25360,8 +25360,8 @@ MonoBehaviour:
   headBone: {fileID: 680250258}
   neckBone: {fileID: 215230821}
   spawnedObjectLifetime: 10
-  defaultForce: 15
-  defaultLocalForceDirection: {x: 0, y: 1, z: 0}
+  defaultForce: 5
+  defaultLocalForceDirection: {x: 0, y: 0.2, z: 1}
 --- !u!114 &2100000002
 MonoBehaviour:
   m_ObjectHideFlags: 0
