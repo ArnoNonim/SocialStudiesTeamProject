@@ -15,11 +15,12 @@ MonoBehaviour:
   MaximumPitchSpeed: 15
   MaximumRollSpeed: 10
   MaximumYawSpeed: 3
+  IdleUpForce: 98.10001
   ForwardMovementForce: 750
   SidewardMovementForce: 450
   UpwardMovementForce: 450
   DownwardMovementForce: 250
-  MaximumPitchAmount: 30
-  MaximumRollAmount: 30
+  MaximumPitchAmount: 10
+  MaximumRollAmount: 10
   PitchRollTiltSpeed: 0.1
   SlowDownTime: 0.85
