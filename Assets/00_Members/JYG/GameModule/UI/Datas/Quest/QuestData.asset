@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f02f63dc5d3df24abfa18b2e9a5b1ca, type: 3}
   m_Name: QuestData
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.UISystem.Quest.QuestData
-  content: "\uC9D1\uC5D0 \uAC00\uC138\uC694"
-  goalCount: 2
+  content: "\uD3ED\uD0C4\uC744 5\uBC88 \uD22C\uD558\uD558\uB77C"
+  goalCount: 5

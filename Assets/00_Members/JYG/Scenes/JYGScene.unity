@@ -1768,6 +1768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.Debugging.QMDebugger
   qData: {fileID: 11400000, guid: 4f0b3601ffa78db459976587cd532728, type: 2}
+  qData2: {fileID: 11400000, guid: 4b71a655a266611488a09d2c0b7dd991, type: 2}
 --- !u!1 &1436500447
 GameObject:
   m_ObjectHideFlags: 0
