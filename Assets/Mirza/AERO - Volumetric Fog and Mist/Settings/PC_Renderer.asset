@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdditionalLightCountFeature
   m_Active: 1
   renderPassEvent: 500
-  material: {fileID: 2100000, guid: f4629c6b95894dd4486b0e8fb2b5fe73, type: 2}
+  material: {fileID: 2100000, guid: fedf334cf2cc1b44d9ae7b524decb528, type: 2}
 --- !u!114 &6031231608386464678
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace _00_Members.PTY.Scripts
@@ -9,6 +10,8 @@ namespace _00_Members.PTY.Scripts
         public Material[] explosionMats;
         public AudioSource exSndSource;
         public AudioClip[] exSndClips;
+        public ExplodeLight exLgt;
+        public CinemachineImpulseSource impulseSource;
         private Rigidbody _rb;
 
         [Header("회전 세팅")] [Tooltip("수류탄이 방향을 잡는 속도입니다. 값이 클수록 빠르게 바닥을 향합니다.")]
@@ -48,10 +51,13 @@ namespace _00_Members.PTY.Scripts
             {
                 ParticleSystem clone = Instantiate(explosion, collision.contacts[0].point + new Vector3(0, 2, 0), Quaternion.identity);
                 AudioSource sndClone = Instantiate(exSndSource, Vector3.zero, Quaternion.identity);
+                exLgt.transform.position = collision.contacts[0].point;
+                exLgt.Play();
                 sndClone.clip = exSndClips[Random.Range(0, exSndClips.Length)];
                 clone.GetComponent<ParticleSystemRenderer>().material = explosionMats[Random.Range(0, explosionMats.Length)];
                 clone.Play();
                 sndClone.Play();
+                impulseSource.GenerateImpulse();
                 Destroy(gameObject);
             }
         }
