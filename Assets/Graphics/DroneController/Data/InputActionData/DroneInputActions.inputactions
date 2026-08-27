@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "DroneInputActions",
     "maps": [
         {
@@ -44,28 +45,6 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "98f4c63d-3ea1-4bd9-a316-6b5accd755b3",
-                    "path": "<XInputController>/leftStick/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pitch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d711ba1c-a16f-4dce-ae0c-3f3e28ee5bf5",
-                    "path": "<Gamepad>/leftStick/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pitch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "1D Axis",
                     "id": "48626e34-708d-4e58-acfa-9acea19154d3",
                     "path": "1DAxis",
@@ -97,28 +76,6 @@
                     "action": "Pitch",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "0c2ef45c-4a2d-444b-a50c-b75d71b1625a",
-                    "path": "<XInputController>/leftStick/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f08d5bd6-8a19-4fbe-8ee3-ad3127dc14d2",
-                    "path": "<Gamepad>/leftStick/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "1D Axis",
@@ -154,28 +111,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "755d6302-0192-44d1-b6b6-88b1f72e2096",
-                    "path": "<XInputController>/rightStick/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Yaw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d05cbd86-c8c2-47b7-bad9-f50e8fcfbd3b",
-                    "path": "<Gamepad>/rightStick/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Yaw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "1D Axis",
                     "id": "0259b7a6-5a3f-4a7d-bebb-5c8a4f8ad0d7",
                     "path": "1DAxis",
@@ -189,7 +124,7 @@
                 {
                     "name": "negative",
                     "id": "beb214e3-afc4-4176-8f26-deffe4397a26",
-                    "path": "<Keyboard>/j",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -200,35 +135,13 @@
                 {
                     "name": "positive",
                     "id": "05f32e12-b67e-4b47-8614-e1b61823bbf3",
-                    "path": "<Keyboard>/l",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Yaw",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "c19cd703-17b1-4183-ac92-a4f026a6b856",
-                    "path": "<XInputController>/rightStick/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ece64c8e-8c04-44ea-bb7b-afed94651074",
-                    "path": "<Gamepad>/rightStick/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "1D Axis",
@@ -244,7 +157,7 @@
                 {
                     "name": "negative",
                     "id": "43a10a35-f0ad-4bd6-a951-b6d4eb82ded9",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -255,7 +168,7 @@
                 {
                     "name": "positive",
                     "id": "e6fba774-26bd-4218-a4ed-21052ad0f640",
-                    "path": "<Keyboard>/i",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

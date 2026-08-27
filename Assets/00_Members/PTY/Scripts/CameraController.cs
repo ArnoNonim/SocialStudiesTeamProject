@@ -1,115 +1,61 @@
-// CameraController.cs
+using System.Threading.Tasks;
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 namespace _00_Members.PTY.Scripts
 {
     public class CameraController : MonoBehaviour
     {
-        [FormerlySerializedAs("_playerInput")]
-        [Header("Input SO")]
-        [SerializeField] private SO.PlayerInputSO playerInput;
+        [SerializeField] private CinemachineCamera frontCam;
+        [SerializeField] private CinemachineCamera dropCam;
+        [SerializeField] private Transform dropPos;
+        [SerializeField] private GameObject grenade;
+        private bool _isChanging;
 
-        [FormerlySerializedAs("_moveSpeed")]
-        [Header("이동 설정")]
-        [SerializeField] private float moveSpeed = 10f;
-        [SerializeField] private float moveLerpSpeed = 8f;      // 이동 러프 속도
-        [SerializeField] private float moveInertiaDecay = 6f;   // 관성 감쇠 속도
-
-        [Header("회전 설정")]
-        [SerializeField] private float lookSensitivity = 0.15f;
-        [SerializeField] private float lookLerpSpeed = 12f;     // 회전 러프 속도
-        [SerializeField] private float lookInertiaDecay = 8f;   // 회전 관성 감쇠 속도
-        [SerializeField] private float pitchClamp = 80f;        // 상하 각도 제한
-
-        // 이동
-        private Vector2 _rawMoveInput;
-        private Vector3 _targetVelocity;
-        private Vector3 _currentVelocity;
-
-        // 회전
-        private Vector2 _rawLookInput;
-        private Vector2 _lookVelocity;      // 회전 관성
-        private float _currentYaw;
-        private float _currentPitch;
-        private float _targetYaw;
-        private float _targetPitch;
-
-        private void OnEnable()
+        private void Awake()
         {
-            playerInput.OnMovement += HandleMovement;
-            playerInput.OnLookAction += HandleLook;
+            // 방어 코드: 인스펙터나 씬에서 카메라가 누락되었는지 확인
+            if (frontCam == null || dropCam == null)
+            {
+                Debug.LogError("카메라가 할당되지 않았습니다. 메인 카메라 태그나 인스펙터를 확인하세요.");
+                return;
+            }
+
+            dropCam.enabled = false;
+            frontCam.enabled = true; // 시작 시 메인 카메라 확실히 켜기
+        }
+        
+        private async void Update()
+        {
+            // 키보드 장치 연결 확인 및 입력 체크
+            if (Keyboard.current != null && !_isChanging && Keyboard.current.vKey.wasPressedThisFrame)
+            {
+                await ChangeCam();
+            }
+
+            if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                GameObject clone = Instantiate(grenade, dropPos);
+                clone.SetActive(true);
+            }
         }
 
-        private void OnDisable()
+        private async Task ChangeCam()
         {
-            playerInput.OnMovement -= HandleMovement;
-            playerInput.OnLookAction -= HandleLook;
-        }
+            _isChanging = true;
 
-        private void Start()
-        {
-            _currentYaw = transform.eulerAngles.y;
-            _currentPitch = transform.eulerAngles.x;
-            _targetYaw = _currentYaw;
-            _targetPitch = _currentPitch;
+            await Task.Delay(300);
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+            // 상태를 안전하게 반전시키는 올바른 로직
+            // 현재 활성화 상태를 보관해두거나, 단순 토글 처리를 합니다.
+            bool currentMainState = frontCam.enabled;
 
-        private void Update()
-        {
-            UpdateMovement();
-            UpdateRotation();
-        }
+            frontCam.enabled = !currentMainState;
+            dropCam.enabled = currentMainState; 
 
-        private void HandleMovement(Vector2 input)
-        {
-            _rawMoveInput = input;
-        }
-
-        private void HandleLook(Vector2 input)
-        {
-            _rawLookInput = input;
-        }
-
-        private void UpdateMovement()
-        {
-            // 입력 기반 목표 속도 계산
-            Vector3 inputDir = new Vector3(_rawMoveInput.x, 0f, _rawMoveInput.y);
-            Vector3 worldDir = transform.TransformDirection(inputDir);  // 카메라 방향 기준
-            Vector3 desiredVelocity = worldDir * moveSpeed;
-
-            // 관성: 입력 없으면 서서히 감쇠
-            if (_rawMoveInput.sqrMagnitude > 0.01f)
-                _targetVelocity = desiredVelocity;
-            else
-                _targetVelocity = Vector3.Lerp(_targetVelocity, Vector3.zero, moveInertiaDecay * Time.deltaTime);
-
-            // 러프로 부드럽게 현재 속도에 적용
-            _currentVelocity = Vector3.Lerp(_currentVelocity, _targetVelocity, moveLerpSpeed * Time.deltaTime);
-            transform.position += _currentVelocity * Time.deltaTime;
-        }
-
-        private void UpdateRotation()
-        {
-            // 마우스 델타 -> 회전 관성에 누적
-            _lookVelocity += _rawLookInput * lookSensitivity;
-
-            // 관성 감쇠
-            _lookVelocity = Vector2.Lerp(_lookVelocity, Vector2.zero, lookInertiaDecay * Time.deltaTime);
-
-            // 목표 각도 누적
-            _targetYaw += _lookVelocity.x;
-            _targetPitch -= _lookVelocity.y;
-            _targetPitch = Mathf.Clamp(_targetPitch, -pitchClamp, pitchClamp);
-
-            // 러프로 현재 각도 추적
-            _currentYaw = Mathf.LerpAngle(_currentYaw, _targetYaw, lookLerpSpeed * Time.deltaTime);
-            _currentPitch = Mathf.LerpAngle(_currentPitch, _targetPitch, lookLerpSpeed * Time.deltaTime);
-
-            transform.rotation = Quaternion.Euler(_currentPitch, _currentYaw, 0f);
+            _isChanging = false;
         }
     }
 }
