@@ -32,6 +32,9 @@ namespace _00_Members.JYG._Scripts.UISystem.Quest
             else
                 questText.text = $"{mainText}\n ({goal}/{maxGoal})";
         }
+        
+        public bool IsComplete()
+        => goal >= maxGoal;
 
         private void Update()
         {

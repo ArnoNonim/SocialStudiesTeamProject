@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f02f63dc5d3df24abfa18b2e9a5b1ca, type: 3}
-  m_Name: QuestData
+  m_Name: QuestData_T1
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.UISystem.Quest.QuestData
   content: "\uD3ED\uD0C4\uC744 5\uBC88 \uD22C\uD558\uD558\uB77C"
   goalCount: 5

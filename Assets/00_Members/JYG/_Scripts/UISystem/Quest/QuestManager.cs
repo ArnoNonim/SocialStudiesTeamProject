@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _00_Members.JYG._Scripts.Util;
 using Unity.Mathematics;
@@ -11,6 +12,8 @@ namespace _00_Members.JYG._Scripts.UISystem.Quest
         
         [SerializeField] private GameObject questField;
         [SerializeField] private GameObject questBlock;
+
+        public event Action OnPlusGoal;
         public void RegistrationQuest(QuestData questData)
         {
             if (questField != null && questBlock != null)
@@ -37,6 +40,7 @@ namespace _00_Members.JYG._Scripts.UISystem.Quest
             if (block == null) return;
             
             block.GoalPlus(goalCount);
+            OnPlusGoal?.Invoke();
         }
 
         private QuestBlock GetQuestBlock(QuestData questData)
@@ -48,6 +52,14 @@ namespace _00_Members.JYG._Scripts.UISystem.Quest
             }
             
             return block;
+        }
+
+        public bool IsCompleteAll()
+        {
+            foreach(QuestBlock block in _questBlocks.Values)
+                if (!block.IsComplete())
+                    return false;
+            return true;
         }
     }
 }

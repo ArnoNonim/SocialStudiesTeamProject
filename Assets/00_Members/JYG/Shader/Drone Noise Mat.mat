@@ -61,7 +61,7 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _Surface: 1
-    - _Transition: 0.2
+    - _Transition: 0.1
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
     - _ZTest: 4

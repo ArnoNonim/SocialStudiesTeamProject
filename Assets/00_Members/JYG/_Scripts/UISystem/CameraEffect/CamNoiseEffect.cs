@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using _00_Members.JYG._Scripts.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _00_Members.JYG._Scripts.UISystem.CameraEffect
 {
-    public class CamNoiseEffect : MonoBehaviour
+    public class CamNoiseEffect : Singleton<CamNoiseEffect> //이거 EffectManager가 들고있게 해야함;
     {
         public Material noiseMat;
 
@@ -23,8 +24,9 @@ namespace _00_Members.JYG._Scripts.UISystem.CameraEffect
 
         public Action OnBlack;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _targetImage = GetComponent<RawImage>();
 
             // 원본 머티리얼이 설정되어 있다면 복사본(Instance)을 만들어 UI에 할당

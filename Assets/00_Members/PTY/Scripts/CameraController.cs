@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using _00_Members.JYG._Scripts.UISystem.CameraEffect;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -46,6 +47,7 @@ namespace _00_Members.PTY.Scripts
         {
             _isChanging = true;
 
+            CamNoiseEffect.Instance.DoNoise();
             await Task.Delay(300);
 
             // 상태를 안전하게 반전시키는 올바른 로직
