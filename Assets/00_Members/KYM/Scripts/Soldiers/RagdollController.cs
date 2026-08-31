@@ -1,4 +1,5 @@
 using KimLIb.ModuleSystems;
+using _00_Members.KYM.Scripts.Soldiers.Explosions;
 using UnityEngine;
 
 namespace _00_Members.KYM.Scripts.Soldiers
@@ -7,6 +8,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
     {
         [SerializeField] private Transform ragdollRoot;
         [SerializeField] private Rigidbody headRigidbody;
+        [SerializeField, Min(0f)] private float settlingSpeed = 0.35f;
 
         private Rigidbody[] _ragdollRigidbodies;
         private Collider[] _ragdollColliders;
@@ -60,6 +62,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 _animator.enabled = false;
             }
 
+            Physics.SyncTransforms();
             SetRagdollActive(true);
 
             Rigidbody targetRigidbody = GetClosestRigidbody(hitPoint);
@@ -68,6 +71,33 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 targetRigidbody.AddForceAtPosition(
                     forceDirection.normalized * force,
                     hitPoint,
+                    ForceMode.Impulse);
+            }
+        }
+
+        public void EnableExplosionRagdoll(ExplosionContext context)
+        {
+            if (IsRagdollActive)
+            {
+                return;
+            }
+
+            if (_animator != null)
+            {
+                _animator.enabled = false;
+            }
+
+            Physics.SyncTransforms();
+            SetRagdollActive(true);
+            foreach (Rigidbody rigidbody in _ragdollRigidbodies)
+            {
+                rigidbody.maxAngularVelocity = Mathf.Min(rigidbody.maxAngularVelocity, 9f);
+                rigidbody.angularDamping = Mathf.Max(rigidbody.angularDamping, 0.45f);
+                rigidbody.AddExplosionForce(
+                    context.Force * context.Exposure,
+                    context.Center,
+                    context.Radius,
+                    context.UpwardModifier,
                     ForceMode.Impulse);
             }
         }
@@ -106,14 +136,35 @@ namespace _00_Members.KYM.Scripts.Soldiers
         {
             IsRagdollActive = value;
 
-            foreach (Rigidbody rigidbody in _ragdollRigidbodies)
-            {
-                rigidbody.isKinematic = !value;
-            }
-
             foreach (Collider ragdollCollider in _ragdollColliders)
             {
                 ragdollCollider.enabled = value;
+            }
+
+            foreach (Rigidbody rigidbody in _ragdollRigidbodies)
+            {
+                if (!value)
+                {
+                    rigidbody.linearVelocity = Vector3.zero;
+                    rigidbody.angularVelocity = Vector3.zero;
+                    rigidbody.useGravity = false;
+                    rigidbody.detectCollisions = false;
+                    rigidbody.isKinematic = true;
+                    continue;
+                }
+
+                rigidbody.isKinematic = false;
+                rigidbody.detectCollisions = true;
+                rigidbody.useGravity = true;
+
+                if (settlingSpeed > 0f && rigidbody.linearVelocity.y > -settlingSpeed)
+                {
+                    Vector3 velocity = rigidbody.linearVelocity;
+                    velocity.y = -settlingSpeed;
+                    rigidbody.linearVelocity = velocity;
+                }
+
+                rigidbody.WakeUp();
             }
         }
 

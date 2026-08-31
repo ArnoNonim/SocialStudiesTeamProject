@@ -96,25 +96,33 @@ namespace _00_Members.KYM.Scripts.VFX
         {
             if (coreBurst == null) return;
 
-            ConfigureMain(coreBurst, 0.28f, 0.12f, 0.24f, 1.2f, 3.2f, 0.18f, 0.42f, 0.15f);
-            ConfigureBurst(coreBurst, 8, 13);
+            ConfigureMain(coreBurst, 0.32f, 0.14f, 0.3f, 1.2f, 3.6f, 0.1f, 0.28f, 0.18f);
+            ConfigureBurst(coreBurst, 15, 24);
             ConfigureConeShape(coreBurst, 38f, 0.08f);
             ConfigureColor(coreBurst, _freshBlood, _darkBlood, 0.95f);
             ConfigureSize(coreBurst, 0.35f, 1f, 0.25f);
-            ConfigureTextureSheet(coreBurst);
+            ConfigureTextureSheet(coreBurst, 8, 11);
+
+            ParticleSystemRenderer renderer = coreBurst.GetComponent<ParticleSystemRenderer>();
+            if (renderer != null)
+            {
+                renderer.renderMode = ParticleSystemRenderMode.Stretch;
+                renderer.lengthScale = 1.8f;
+                renderer.velocityScale = 0.12f;
+            }
         }
 
         private void ConfigureImpactMist()
         {
             if (impactMist == null) return;
 
-            ConfigureMain(impactMist, 0.42f, 0.16f, 0.34f, 0.35f, 1.15f, 0.32f, 0.78f, 0.02f);
-            ConfigureBurst(impactMist, 12, 18);
+            ConfigureMain(impactMist, 0.5f, 0.18f, 0.42f, 0.3f, 1.35f, 0.14f, 0.38f, 0.03f);
+            ConfigureBurst(impactMist, 26, 40);
             ConfigureConeShape(impactMist, 58f, 0.1f);
             ConfigureColor(impactMist, new Color(0.25f, 0.008f, 0.01f), _darkBlood, 0.55f);
             ConfigureSize(impactMist, 0.25f, 1.1f, 1.35f);
             ConfigureNoise(impactMist, 0.12f, 0.32f, 0.7f);
-            ConfigureTextureSheet(impactMist);
+            ConfigureTextureSheet(impactMist, 8, 11);
         }
 
         private void ConfigureSpray()
@@ -122,13 +130,13 @@ namespace _00_Members.KYM.Scripts.VFX
             if (spray == null) return;
 
             ConfigureMain(spray, 0.72f, 0.3f, 0.68f, 4.5f, 8.5f, 0.045f, 0.12f, 0.75f);
-            ConfigureBurst(spray, 18, 28);
+            ConfigureBurst(spray, 34, 52);
             ConfigureConeShape(spray, 16f, 0.035f);
             ConfigureColor(spray, _freshBlood, _darkBlood, 1f);
             ConfigureSize(spray, 0.65f, 1f, 0.4f);
             ConfigureNoise(spray, 0.08f, 0.2f, 0.55f);
             ConfigureCollision(spray, 0.28f);
-            ConfigureTextureSheet(spray);
+            ConfigureTextureSheet(spray, 8, 11);
 
             ParticleSystemRenderer renderer = spray.GetComponent<ParticleSystemRenderer>();
             if (renderer != null)
@@ -144,21 +152,21 @@ namespace _00_Members.KYM.Scripts.VFX
             if (droplets == null) return;
 
             ConfigureMain(droplets, 1.2f, 0.5f, 1.05f, 2.2f, 5.5f, 0.025f, 0.085f, 1.65f);
-            ConfigureBurst(droplets, 28, 44);
+            ConfigureBurst(droplets, 54, 78);
             ConfigureConeShape(droplets, 48f, 0.075f);
             ConfigureColor(droplets, _freshBlood, _darkBlood, 1f);
             ConfigureSize(droplets, 0.8f, 1f, 0.55f);
             ConfigureNoise(droplets, 0.04f, 0.14f, 0.8f);
             ConfigureCollision(droplets, 0.42f);
-            ConfigureTextureSheet(droplets);
+            ConfigureTextureSheet(droplets, 8, 11);
         }
 
         private void ConfigureRadialExplosion()
         {
-            ConfigureRadialLayer(coreBurst, 28, 42, 2.8f, 5.8f, 0.18f, 0.38f, 0.28f, 0.66f, 0.1f);
-            ConfigureRadialLayer(impactMist, 38, 56, 0.8f, 2.3f, 0.24f, 0.55f, 0.55f, 1.35f, 0.02f);
-            ConfigureRadialLayer(spray, 45, 70, 6f, 11f, 0.34f, 0.82f, 0.06f, 0.17f, 0.65f);
-            ConfigureRadialLayer(droplets, 62, 90, 3.3f, 8.2f, 0.58f, 1.3f, 0.035f, 0.115f, 1.55f);
+            ConfigureRadialLayer(coreBurst, 46, 68, 2.8f, 6.2f, 0.18f, 0.4f, 0.16f, 0.42f, 0.12f);
+            ConfigureRadialLayer(impactMist, 68, 96, 0.8f, 2.5f, 0.24f, 0.58f, 0.2f, 0.62f, 0.03f);
+            ConfigureRadialLayer(spray, 82, 118, 6f, 11.5f, 0.34f, 0.86f, 0.045f, 0.14f, 0.68f);
+            ConfigureRadialLayer(droplets, 110, 150, 3.3f, 8.5f, 0.58f, 1.35f, 0.025f, 0.095f, 1.6f);
         }
 
         private static void ConfigureRadialLayer(ParticleSystem system, short minCount, short maxCount,
@@ -175,7 +183,7 @@ namespace _00_Members.KYM.Scripts.VFX
             main.startLifetime = new ParticleSystem.MinMaxCurve(minLifetime, maxLifetime);
             main.startSize = new ParticleSystem.MinMaxCurve(minSize, maxSize);
             main.gravityModifier = gravity;
-            main.maxParticles = 192;
+            main.maxParticles = 320;
 
             ConfigureBurst(system, minCount, maxCount);
             ConfigureSphereShape(system, 0.14f);
@@ -287,7 +295,7 @@ namespace _00_Members.KYM.Scripts.VFX
             collision.maxCollisionShapes = 32;
         }
 
-        private static void ConfigureTextureSheet(ParticleSystem system)
+        private static void ConfigureTextureSheet(ParticleSystem system, int firstFrame, int lastFrame)
         {
             ParticleSystem.TextureSheetAnimationModule textureSheet = system.textureSheetAnimation;
             textureSheet.enabled = true;
@@ -296,7 +304,9 @@ namespace _00_Members.KYM.Scripts.VFX
             textureSheet.numTilesX = 4;
             textureSheet.numTilesY = 4;
             textureSheet.frameOverTime = 0f;
-            textureSheet.startFrame = new ParticleSystem.MinMaxCurve(0f, 0.999f);
+            float minFrame = Mathf.Clamp(firstFrame, 0, 15) / 16f;
+            float maxFrame = (Mathf.Clamp(lastFrame, firstFrame, 15) + 0.999f) / 16f;
+            textureSheet.startFrame = new ParticleSystem.MinMaxCurve(minFrame, maxFrame);
             textureSheet.cycleCount = 1;
         }
     }
