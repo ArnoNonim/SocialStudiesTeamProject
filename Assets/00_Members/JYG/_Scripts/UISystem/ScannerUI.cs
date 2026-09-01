@@ -9,6 +9,7 @@ namespace _00_Members.JYG._Scripts.UISystem
         [SerializeField] private GameObject scannerSquare;
         [SerializeField] private LayerMask targetMask;
         [SerializeField] private float distance;
+        private Transform _drone;
 
         private void Awake()
         {
@@ -18,6 +19,13 @@ namespace _00_Members.JYG._Scripts.UISystem
                 Debug.LogWarning("Billboard가 MainCamera를 들고오지 못했습니다. : " + gameObject.name);
         }
 
+        private void Start()
+        {
+            _drone = GameManager.Instance.drone;
+            Debug.LogWarning("Drone이 GameManager에 정의되지 않았습니다. 비활성화 처리합니다. : " + gameObject.name);
+            enabled = false;
+        }
+
         private void FixedUpdate()
         {
             CheckDroneRaycast();
@@ -25,10 +33,10 @@ namespace _00_Members.JYG._Scripts.UISystem
 
         private void CheckDroneRaycast()
         {
-            Ray ray = new Ray(transform.position, GameManager.Instance.drone.transform.position - transform.position);
+            Ray ray = new Ray(transform.position, _drone.transform.position - transform.position);
             if (Physics.Raycast(ray, out RaycastHit hit, distance, targetMask))
             {
-                if (hit.transform == GameManager.Instance.drone)
+                if (hit.transform == _drone)
                 {
                     if (!scannerSquare.activeSelf)
                     {

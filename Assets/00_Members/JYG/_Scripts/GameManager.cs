@@ -12,8 +12,9 @@ namespace _00_Members.JYG._Scripts
     {
         private Coroutine _sceneLoadCoroutine;
         [SerializeField] private Transform effector;
-        private WaitForSeconds _waitForSeconds = new WaitForSeconds(0.2f);
+        private readonly WaitForSeconds _waitForSeconds = new WaitForSeconds(0.2f);
         public Transform drone;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -34,22 +35,25 @@ namespace _00_Members.JYG._Scripts
 
         public IEnumerator SceneChange(string sceneName)
         {
-            List<ISceneEffector> effectors = effector.GetComponentsInChildren<ISceneEffector>().ToList();
-            if (effectors.Count != 0)
+            if (effector != null)
             {
-                foreach (ISceneEffector sceneEffector in effectors)
+                List<ISceneEffector> effectors = effector.GetComponentsInChildren<ISceneEffector>().ToList();
+                if (effectors.Count != 0)
                 {
-                    sceneEffector.ExecuteEffect();
-                }
-                while (effectors.Count > 0)
-                {
-                    if (effectors[0].IsEnd)
+                    foreach (ISceneEffector sceneEffector in effectors)
                     {
-                        effectors.RemoveAt(0);
-                        continue;
+                        sceneEffector.ExecuteEffect();
                     }
+                    while (effectors.Count > 0)
+                    {
+                        if (effectors[0].IsEnd)
+                        {
+                            effectors.RemoveAt(0);
+                            continue;
+                        }
 
-                    yield return _waitForSeconds;
+                        yield return _waitForSeconds;
+                    }
                 }
             }
             _sceneLoadCoroutine = null;
