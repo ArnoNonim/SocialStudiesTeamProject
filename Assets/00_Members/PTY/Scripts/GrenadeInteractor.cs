@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace _00_Members.PTY.Scripts
 {
-    public class GrenadeDropper : MonoBehaviour
+    public class GrenadeInteractor : MonoBehaviour
     {
         [SerializeField] private DropGrenade grenadePrefab;
         [SerializeField] private Transform grenadePoolFolder;
@@ -12,7 +12,10 @@ namespace _00_Members.PTY.Scripts
         [SerializeField] private Transform dropPos;
 
         public int grenadeAmount = 2;
+        public bool isSuicideDrone;
 
+        private bool _isExploded;   
+        
         private void Awake()
         {
             DropGrenade.Initialize(grenadePrefab, grenadePoolFolder, fxPrefab, fxPoolFolder);
@@ -20,9 +23,15 @@ namespace _00_Members.PTY.Scripts
 
         private void Update()
         {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame && grenadeAmount > 0)
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
-                Throw(dropPos.position, Quaternion.identity);
+                if(grenadeAmount > 0 && !isSuicideDrone)
+                    Throw(dropPos.position, Quaternion.identity);
+                else if (isSuicideDrone && !_isExploded)
+                {
+                    Debug.Log("자폭");
+                    _isExploded = true;
+                }
             }
         }
         

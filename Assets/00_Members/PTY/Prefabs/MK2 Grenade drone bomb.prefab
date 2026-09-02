@@ -268,4 +268,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a822601378e31c1439bfa348d721d310, type: 3}
   - {fileID: 8300000, guid: 1e8226ba50ebdd8468059914804abb4c, type: 3}
   col: {fileID: 2825605846890974602}
-  rotationSpeed: 2
+  rotationSpeed: 1.25
