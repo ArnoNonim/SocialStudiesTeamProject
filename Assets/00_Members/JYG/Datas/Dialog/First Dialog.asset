@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3ee6d11a29af249b1c7d3917cfe910, type: 3}
+  m_Name: First Dialog
+  m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.UISystem.DialogSystem.DialogData
+  contents:
+  - speakerName: "\uD558\uC774\uC694"
+    content: "\uD558\uC719"
+  - speakerName: "\uD760"
+    content: "\uD750\uC73C\uC73C\uC74C"
+  - speakerName: "\uC5C4"
+    content: "\uC5CC \uD06C\uD06C"
