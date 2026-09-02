@@ -12,7 +12,6 @@ namespace _00_Members.PTY.Scripts
         [SerializeField] private CinemachineCamera frontCam;
         [SerializeField] private CinemachineCamera dropCam;
         [SerializeField] private Transform dropPos;
-        [SerializeField] private GameObject grenade;
         private bool _isChanging;
 
         private void Awake()
@@ -34,12 +33,6 @@ namespace _00_Members.PTY.Scripts
             if (Keyboard.current != null && !_isChanging && Keyboard.current.vKey.wasPressedThisFrame)
             {
                 await ChangeCam();
-            }
-
-            if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                GameObject clone = Instantiate(grenade, dropPos);
-                clone.SetActive(true);
             }
         }
 
