@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using _00_Members.KYM.Scripts.Humans;
 using _00_Members.KYM.Scripts.Soldiers.DeathEvent;
+using _00_Members.KYM.Scripts.Soldiers.Explosions;
 using _00_Members.KYM.Scripts.VFX;
-using KimLIb.ModuleSystems;
 using UnityEngine;
 
 namespace _00_Members.KYM.Scripts.Soldiers
 {
-    public class Soldier : ModuleOwner
+    public class Soldier : AbstractHuman
     {
         [Header("Death Effects")]
         [SerializeField] private GameObject bodyExplosionEffect;
@@ -36,8 +37,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
         public SoldierRenderer Renderer { get; private set; }
         public RagdollController Ragdoll { get; private set; }
         public SoldierDismemberment Dismemberment { get; private set; }
-        public bool IsDead { get; private set; }
-
         protected override void Awake()
         {
             base.Awake();
@@ -83,7 +82,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
             }
         }
 
-        public void Revive()
+        public override void Revive()
         {
             ClearSpawnedDeathObjects();
 
@@ -128,7 +127,20 @@ namespace _00_Members.KYM.Scripts.Soldiers
             }
 
             Mover?.ResetMovement(transform.position);
-            IsDead = false;
+            base.Revive();
+        }
+
+        protected override void HandleFatalDamage(HumanDamage damage)
+        {
+            Vector3 direction = damage.Direction.sqrMagnitude > 0f
+                ? damage.Direction
+                : transform.TransformDirection(defaultLocalForceDirection);
+            ExecuteDeath(
+                DeathType.Ragdoll,
+                damage.HitPoint,
+                direction,
+                damage.Force,
+                null);
         }
 
         public void Die(DeathType deathType)
@@ -142,12 +154,50 @@ namespace _00_Members.KYM.Scripts.Soldiers
 
         public void Die(DeathType deathType, Vector3 hitPoint, Vector3 forceDirection, float force)
         {
-            if (IsDead)
+            DieInternal(deathType, hitPoint, forceDirection, force, null);
+        }
+
+        public void DieFromExplosion(
+            DeathType deathType,
+            ExplosionContext context,
+            Vector3 hitPoint)
+        {
+            Vector3 forceDirection = hitPoint - context.Center;
+            if (forceDirection.sqrMagnitude < 0.001f)
+            {
+                forceDirection = transform.up;
+            }
+
+            DieInternal(
+                deathType,
+                hitPoint,
+                forceDirection.normalized,
+                context.EvaluateForceAt(hitPoint),
+                context);
+        }
+
+        private void DieInternal(
+            DeathType deathType,
+            Vector3 hitPoint,
+            Vector3 forceDirection,
+            float force,
+            ExplosionContext? explosionContext)
+        {
+            if (!TryBeginDeath())
             {
                 return;
             }
 
-            IsDead = true;
+            ExecuteDeath(deathType, hitPoint, forceDirection, force, explosionContext);
+        }
+
+        private void ExecuteDeath(
+            DeathType deathType,
+            Vector3 hitPoint,
+            Vector3 forceDirection,
+            float force,
+            ExplosionContext? explosionContext)
+        {
             StopGameplayBody();
             Quaternion effectRotation = forceDirection.sqrMagnitude > 0f
                 ? Quaternion.LookRotation(forceDirection.normalized, Vector3.up)
@@ -156,22 +206,30 @@ namespace _00_Members.KYM.Scripts.Soldiers
             switch (deathType)
             {
                 case DeathType.Ragdoll:
-                    Ragdoll?.EnableRagdoll(hitPoint, forceDirection, force);
+                    if (explosionContext.HasValue)
+                    {
+                        Ragdoll?.EnableExplosionRagdoll(explosionContext.Value);
+                    }
+                    else
+                    {
+                        Ragdoll?.EnableRagdoll(hitPoint, forceDirection, force);
+                    }
                     break;
 
                 case DeathType.BodyExplosion:
-                    Vector3 bodyExplosionCenter = transform.position + transform.up;
+                    Vector3 victimBodyCenter = transform.position + transform.up;
+                    Vector3 bodyExplosionForceOrigin = explosionContext?.Center ?? victimBodyCenter;
                     if (Dismemberment != null)
                     {
                         _spawnedDeathObjects.AddRange(Dismemberment.Explode(
-                            bodyExplosionCenter,
+                            bodyExplosionForceOrigin,
                             force,
                             spawnedObjectLifetime,
                             false));
                     }
 
                     Vector3 bodyHeadPosition = headBone != null ? headBone.position : hitPoint;
-                    Vector3 bodyHeadDirection = bodyHeadPosition - bodyExplosionCenter + transform.up * 0.35f;
+                    Vector3 bodyHeadDirection = bodyHeadPosition - bodyExplosionForceOrigin + transform.up * 0.35f;
                     GameObject bodyExplosionHead = SpawnDetachedHead(
                         bodyHeadPosition,
                         bodyHeadDirection,
@@ -187,7 +245,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
                     Renderer?.SetVisible(false);
                     SpawnEffect(
                         bodyExplosionEffect,
-                        bodyExplosionCenter,
+                        victimBodyCenter,
                         effectRotation,
                         BloodBurstMode.RadialExplosion);
                     break;
@@ -203,7 +261,14 @@ namespace _00_Members.KYM.Scripts.Soldiers
                         BloodBurstMode.Directional);
                     GameObject detachedHead = SpawnDetachedHead(hitPoint, forceDirection, force);
                     AttachHeadExplosionBleeding(detachedHead, neckPosition);
-                    Ragdoll?.EnableRagdoll(hitPoint, forceDirection, force);
+                    if (explosionContext.HasValue)
+                    {
+                        Ragdoll?.EnableExplosionRagdoll(explosionContext.Value);
+                    }
+                    else
+                    {
+                        Ragdoll?.EnableRagdoll(hitPoint, forceDirection, force);
+                    }
                     Ragdoll?.DisableHeadPhysics();
                     break;
             }
