@@ -7,7 +7,7 @@ namespace _00_Members.JYG._Scripts.Util
     {
         public static T Instance { get; private set; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if(Instance == null)
             {

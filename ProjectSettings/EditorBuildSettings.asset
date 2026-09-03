@@ -8,6 +8,27 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Title.unity
+    guid: 2c92706a57696464ab0c30ea80c841e7
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Dialog.unity
+    guid: d7811fd43753d5743a2adec39cf0df78
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Stage01.unity
+    guid: dad886a9b8a35d94b9accf3112a79c0a
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Stage02.unity
+    guid: c69444b7716908a479137d5e62f00c51
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Stage03.unity
+    guid: fd815c923130701449edfcc4a218e799
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Stage04.unity
+    guid: 79b0bf7b1af552840879a25ab15048d7
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Stage05.unity
+    guid: b230069d4e88a5040a4dd7f54e9ce4b6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
