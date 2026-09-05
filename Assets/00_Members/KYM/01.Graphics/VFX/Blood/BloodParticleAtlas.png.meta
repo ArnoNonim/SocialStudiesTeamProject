@@ -12,7 +12,7 @@ TextureImporter:
     fadeOut: 0
     borderMipMap: 1
     mipMapsPreserveCoverage: 1
-    alphaTestReferenceValue: 0.35
+    alphaTestReferenceValue: 0.2
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -42,7 +42,7 @@ TextureImporter:
     wrapW: 1
   nPOTScale: 1
   lightmap: 0
-  compressionQuality: 65
+  compressionQuality: 85
   spriteMode: 0
   spriteExtrude: 1
   spriteMeshType: 1
@@ -73,7 +73,7 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 65
+    compressionQuality: 85
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0

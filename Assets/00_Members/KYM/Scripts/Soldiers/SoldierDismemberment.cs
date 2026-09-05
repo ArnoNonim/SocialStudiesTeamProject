@@ -24,6 +24,11 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [SerializeField] private float partAngularDamping = 1.6f;
         [SerializeField] private float maxPartAngularVelocity = 7f;
 
+        [Header("Detached Part Colliders")]
+        [SerializeField, Range(0.1f, 1f)] private float limbColliderRadiusScale = 0.22f;
+        [SerializeField, Range(0.1f, 1f)] private float limbColliderLengthScale = 0.65f;
+        [SerializeField, Range(0.1f, 1f)] private float bodyColliderScale = 0.52f;
+
         [Header("Bleeding")]
         [SerializeField] private Material bloodMaterial;
         [SerializeField] private float bleedingDuration = 2.8f;
@@ -153,7 +158,11 @@ namespace _00_Members.KYM.Scripts.Soldiers
                     sectionMesh.SetTriangles(section.Value[subMesh], subMesh, false);
                 }
 
-                sectionMesh.RecalculateBounds();
+                // The cloned mesh still contains every vertex from the baked body even though
+                // only this section's triangles are rendered. RecalculateBounds() would include
+                // those unused vertices and pull the detached part's pivot/collider toward the
+                // full body's center. Build a tight bound from referenced vertices instead.
+                sectionMesh.bounds = CalculateUsedVertexBounds(sectionMesh, section.Value);
                 generatedMeshes.Add(sectionMesh);
 
                 GameObject sectionRoot = GetOrCreateSectionRoot(section.Key, sectionObjects);
@@ -255,6 +264,36 @@ namespace _00_Members.KYM.Scripts.Soldiers
             return result;
         }
 
+        private static Bounds CalculateUsedVertexBounds(Mesh mesh, List<int>[] subMeshes)
+        {
+            Vector3[] vertices = mesh.vertices;
+            Bounds bounds = default;
+            bool hasVertex = false;
+
+            foreach (List<int> triangles in subMeshes)
+            {
+                foreach (int vertexIndex in triangles)
+                {
+                    if (vertexIndex < 0 || vertexIndex >= vertices.Length)
+                    {
+                        continue;
+                    }
+
+                    if (!hasVertex)
+                    {
+                        bounds = new Bounds(vertices[vertexIndex], Vector3.zero);
+                        hasVertex = true;
+                    }
+                    else
+                    {
+                        bounds.Encapsulate(vertices[vertexIndex]);
+                    }
+                }
+            }
+
+            return hasVertex ? bounds : mesh.bounds;
+        }
+
         private static bool HasTriangles(List<int>[] subMeshes)
         {
             foreach (List<int> triangles in subMeshes)
@@ -346,6 +385,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
             rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             rigidbody.angularDamping = partAngularDamping;
             rigidbody.maxAngularVelocity = maxPartAngularVelocity;
+            rigidbody.ResetCenterOfMass();
+            rigidbody.ResetInertiaTensor();
 
             Vector3 outward = bounds.center - explosionCenter;
             if (outward.sqrMagnitude < 0.001f)
@@ -364,7 +405,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
             return true;
         }
 
-        private static void AddSectionCollider(BodySection section, GameObject sectionRoot, Bounds bounds)
+        private void AddSectionCollider(BodySection section, GameObject sectionRoot, Bounds bounds)
         {
             Vector3 size = bounds.size;
             if (section == BodySection.LeftArm || section == BodySection.RightArm ||
@@ -376,16 +417,20 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 float length = GetAxis(size, capsule.direction);
                 float widthA = GetAxis(size, (capsule.direction + 1) % 3);
                 float widthB = GetAxis(size, (capsule.direction + 2) % 3);
-                capsule.radius = Mathf.Max(Mathf.Min(widthA, widthB) * 0.32f, 0.025f);
-                capsule.height = Mathf.Max(length * 0.82f, capsule.radius * 2f);
+                capsule.radius = Mathf.Max(
+                    Mathf.Min(widthA, widthB) * limbColliderRadiusScale,
+                    0.018f);
+                capsule.height = Mathf.Max(
+                    length * limbColliderLengthScale,
+                    capsule.radius * 2f);
                 return;
             }
 
             BoxCollider box = sectionRoot.AddComponent<BoxCollider>();
             box.size = new Vector3(
-                Mathf.Max(size.x * 0.78f, 0.05f),
-                Mathf.Max(size.y * 0.78f, 0.05f),
-                Mathf.Max(size.z * 0.78f, 0.05f));
+                Mathf.Max(size.x * bodyColliderScale, 0.025f),
+                Mathf.Max(size.y * bodyColliderScale, 0.025f),
+                Mathf.Max(size.z * bodyColliderScale, 0.025f));
         }
 
         private static int GetLongestAxis(Vector3 size)
@@ -490,18 +535,18 @@ namespace _00_Members.KYM.Scripts.Soldiers
             main.simulationSpace = ParticleSystemSimulationSpace.Local;
             main.startLifetime = new ParticleSystem.MinMaxCurve(0.55f, 0.95f);
             main.startSpeed = new ParticleSystem.MinMaxCurve(0.015f, 0.1f);
-            main.startSize = new ParticleSystem.MinMaxCurve(0.12f, 0.25f);
+            main.startSize = new ParticleSystem.MinMaxCurve(0.07f, 0.17f);
             main.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
             main.startColor = new ParticleSystem.MinMaxGradient(
                 new Color(0.25f, 0.002f, 0.004f, 0.98f),
                 new Color(0.055f, 0.001f, 0.001f, 0.96f));
             main.gravityModifier = 0.08f;
-            main.maxParticles = 28;
+            main.maxParticles = 52;
 
             ParticleSystem.EmissionModule emission = system.emission;
             emission.enabled = true;
-            emission.rateOverTime = new ParticleSystem.MinMaxCurve(8f, 13f);
-            emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 7, 12) });
+            emission.rateOverTime = new ParticleSystem.MinMaxCurve(14f, 22f);
+            emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 13, 20) });
 
             ParticleSystem.ShapeModule shape = system.shape;
             shape.enabled = true;
@@ -550,17 +595,17 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 new Color(0.32f, 0.004f, 0.006f, 0.95f),
                 new Color(0.09f, 0.001f, 0.002f, 0.92f));
             main.gravityModifier = 0.75f;
-            main.maxParticles = 32;
+            main.maxParticles = 56;
 
             ParticleSystem.EmissionModule emission = system.emission;
             emission.enabled = true;
             emission.rateOverTime = 0f;
             emission.SetBursts(new[]
             {
-                new ParticleSystem.Burst(0f, 4, 7),
-                new ParticleSystem.Burst(0.16f, 2, 5),
-                new ParticleSystem.Burst(0.38f, 2, 4),
-                new ParticleSystem.Burst(0.75f, 1, 3)
+                new ParticleSystem.Burst(0f, 8, 12),
+                new ParticleSystem.Burst(0.16f, 5, 9),
+                new ParticleSystem.Burst(0.38f, 4, 7),
+                new ParticleSystem.Burst(0.75f, 3, 5)
             });
 
             ParticleSystem.ShapeModule shape = system.shape;
@@ -614,11 +659,11 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 new Color(0.28f, 0.003f, 0.005f, 0.95f),
                 new Color(0.065f, 0.001f, 0.001f, 0.92f));
             main.gravityModifier = 1.9f;
-            main.maxParticles = 32;
+            main.maxParticles = 56;
 
             ParticleSystem.EmissionModule emission = system.emission;
             emission.enabled = true;
-            emission.rateOverTime = new ParticleSystem.MinMaxCurve(2.5f, 5f);
+            emission.rateOverTime = new ParticleSystem.MinMaxCurve(5f, 9f);
 
             ParticleSystem.ShapeModule shape = system.shape;
             shape.enabled = true;
@@ -693,7 +738,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
             textureSheet.numTilesX = 4;
             textureSheet.numTilesY = 4;
             textureSheet.frameOverTime = 0f;
-            textureSheet.startFrame = new ParticleSystem.MinMaxCurve(0f, 0.999f);
+            textureSheet.startFrame = new ParticleSystem.MinMaxCurve(0.5f, 0.749f);
             textureSheet.cycleCount = 1;
         }
 
