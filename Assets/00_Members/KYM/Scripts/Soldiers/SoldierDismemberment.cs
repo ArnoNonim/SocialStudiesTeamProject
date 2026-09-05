@@ -158,7 +158,11 @@ namespace _00_Members.KYM.Scripts.Soldiers
                     sectionMesh.SetTriangles(section.Value[subMesh], subMesh, false);
                 }
 
-                sectionMesh.RecalculateBounds();
+                // The cloned mesh still contains every vertex from the baked body even though
+                // only this section's triangles are rendered. RecalculateBounds() would include
+                // those unused vertices and pull the detached part's pivot/collider toward the
+                // full body's center. Build a tight bound from referenced vertices instead.
+                sectionMesh.bounds = CalculateUsedVertexBounds(sectionMesh, section.Value);
                 generatedMeshes.Add(sectionMesh);
 
                 GameObject sectionRoot = GetOrCreateSectionRoot(section.Key, sectionObjects);
@@ -260,6 +264,36 @@ namespace _00_Members.KYM.Scripts.Soldiers
             return result;
         }
 
+        private static Bounds CalculateUsedVertexBounds(Mesh mesh, List<int>[] subMeshes)
+        {
+            Vector3[] vertices = mesh.vertices;
+            Bounds bounds = default;
+            bool hasVertex = false;
+
+            foreach (List<int> triangles in subMeshes)
+            {
+                foreach (int vertexIndex in triangles)
+                {
+                    if (vertexIndex < 0 || vertexIndex >= vertices.Length)
+                    {
+                        continue;
+                    }
+
+                    if (!hasVertex)
+                    {
+                        bounds = new Bounds(vertices[vertexIndex], Vector3.zero);
+                        hasVertex = true;
+                    }
+                    else
+                    {
+                        bounds.Encapsulate(vertices[vertexIndex]);
+                    }
+                }
+            }
+
+            return hasVertex ? bounds : mesh.bounds;
+        }
+
         private static bool HasTriangles(List<int>[] subMeshes)
         {
             foreach (List<int> triangles in subMeshes)
@@ -351,6 +385,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
             rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             rigidbody.angularDamping = partAngularDamping;
             rigidbody.maxAngularVelocity = maxPartAngularVelocity;
+            rigidbody.ResetCenterOfMass();
+            rigidbody.ResetInertiaTensor();
 
             Vector3 outward = bounds.center - explosionCenter;
             if (outward.sqrMagnitude < 0.001f)
