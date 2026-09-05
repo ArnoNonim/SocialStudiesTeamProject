@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Scene data 01
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.Scene.SceneData
   nextScene: Dialog
-  quests: []
-  dialogData: {fileID: 0}
+  quests:
+  - {fileID: 11400000, guid: db35adc96a8e14f45b5c5c5dc13c14d9, type: 2}
+  dialogData: {fileID: 11400000, guid: e4b8ec1bda1667d4ba47c41c9678f822, type: 2}
