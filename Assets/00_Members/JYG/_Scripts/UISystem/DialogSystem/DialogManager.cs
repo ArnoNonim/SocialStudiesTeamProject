@@ -127,5 +127,12 @@ namespace _00_Members.JYG._Scripts.UISystem.DialogSystem
             gameObject.SetActive(false);
             SceneManager.LoadScene("Stage0" + PlayerPrefs.GetInt(SceneController.StageNumberKey));
         }
+
+        [ContextMenu("Remove Data")]
+        public void ResetLevelData()
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetInt(SceneController.StageNumberKey, 1);
+        }
     }
 }
