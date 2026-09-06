@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _00_Members.JYG._Scripts.UISystem.Quest;
 using _00_Members.KYM.Scripts.Humans;
 using _00_Members.KYM.Scripts.Soldiers.DeathEvent;
 using _00_Members.KYM.Scripts.Soldiers.Explosions;
@@ -20,6 +21,9 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [Header("Death Force")]
         [SerializeField] private float defaultForce = 12f;
         [SerializeField] private Vector3 defaultLocalForceDirection = Vector3.back;
+        
+        [Header("Quest System")]
+        [SerializeField] private QuestData targetQuest;
 
         private Collider[] _rootColliders;
         private bool[] _initialRootColliderStates;
@@ -155,6 +159,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
         public void Die(DeathType deathType, Vector3 hitPoint, Vector3 forceDirection, float force)
         {
             DieInternal(deathType, hitPoint, forceDirection, force, null);
+            if(QuestManager.Instance != null && targetQuest != null)
+                QuestManager.Instance.PlusGoal(targetQuest, 1);
         }
 
         public void DieFromExplosion(

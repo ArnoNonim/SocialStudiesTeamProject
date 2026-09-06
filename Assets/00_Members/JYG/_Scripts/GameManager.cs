@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace _00_Members.JYG._Scripts
 {
+    [DefaultExecutionOrder(-100)]
     public class GameManager : Singleton<GameManager>
     {
         private Coroutine _sceneLoadCoroutine;

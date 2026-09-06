@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3ee6d11a29af249b1c7d3917cfe910, type: 3}
+  m_Name: Stage01_Dialog
+  m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.UISystem.DialogSystem.DialogData
+  contents:
+  - speakerName: "\uBB34\uC804\uAE30"
+    content: "\uCCAB \uC784\uBB34\uB97C \uC798 \uC644\uC218\uD574\uC8FC\uC5C8\uB124"
+  - speakerName: "\uBB34\uC804\uAE30"
+    content: "\uB2E4\uC74C \uC784\uBB34\uB294 "
