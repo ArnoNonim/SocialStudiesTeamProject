@@ -1,7 +1,5 @@
 using System.Collections;
 using _00_Members.KYM.Scripts.Humans;
-using _00_Members.KYM.Scripts.Soldiers;
-using _00_Members.KYM.Scripts.Soldiers.DeathEvent;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -93,7 +91,7 @@ namespace _00_Members.PTY.Scripts
 
                 if (hitHuman == null) continue;
 
-                hitHuman.Die();
+                hitHuman.Die(Vector3.Distance(transform.position, hitHuman.transform.position));
                 Debug.Log($"병사 {hitHuman.gameObject.name} 킬");
             }
             
