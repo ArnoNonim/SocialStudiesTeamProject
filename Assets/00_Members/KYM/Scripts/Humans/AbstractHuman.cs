@@ -57,6 +57,23 @@ namespace _00_Members.KYM.Scripts.Humans
             }
         }
 
+        public void Die(float distance)
+        {
+            if (!TryBeginDeath())
+            {
+                return;
+            }
+
+            float distanceInfo = float.IsNaN(distance)
+                ? float.PositiveInfinity
+                : Mathf.Max(0f, distance);
+            HumanDamage fatalDamage = new HumanDamage(
+                float.MaxValue,
+                DamageSamplePoint,
+                Vector3.zero);
+            HandleDistanceDeath(distanceInfo, fatalDamage);
+        }
+
         public virtual void Revive()
         {
             RestoreLife(true);
@@ -76,6 +93,11 @@ namespace _00_Members.KYM.Scripts.Humans
         }
 
         protected abstract void HandleFatalDamage(HumanDamage damage);
+
+        protected virtual void HandleDistanceDeath(float distance, HumanDamage damage)
+        {
+            HandleFatalDamage(damage);
+        }
 
         private void RestoreLife(bool notify)
         {

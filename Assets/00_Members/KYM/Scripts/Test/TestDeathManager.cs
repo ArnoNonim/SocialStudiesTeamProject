@@ -1,15 +1,16 @@
-using _00_Members.KYM.Scripts.Soldiers;
-using _00_Members.KYM.Scripts.Soldiers.DeathEvent;
+using _00_Members.KYM.Scripts.Humans;
 using _00_Members.KYM.Scripts.Soldiers.Explosions;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace _00_Members.KYM.Scripts.Test
 {
     public class TestDeathManager : MonoBehaviour
     {
-        [SerializeField] private Soldier targetSoldier;
-        [SerializeField] private DeathType deathType = DeathType.Ragdoll;
+        [FormerlySerializedAs("targetSoldier")]
+        [SerializeField] private AbstractHuman targetHuman;
+        [SerializeField, Min(0f)] private float deathDistance;
         [SerializeField] private Key deathKey = Key.K;
         [SerializeField] private Key resetKey = Key.R;
 
@@ -26,33 +27,33 @@ namespace _00_Members.KYM.Scripts.Test
         private void Update()
         {
             Keyboard keyboard = Keyboard.current;
-            if (targetSoldier == null || keyboard == null)
+            if (targetHuman == null || keyboard == null)
             {
                 return;
             }
 
             if (keyboard[resetKey].wasPressedThisFrame)
             {
-                targetSoldier.Revive();
+                targetHuman.Revive();
                 return;
             }
 
             if (keyboard[deathKey].wasPressedThisFrame)
             {
-                targetSoldier.Die(deathType);
+                targetHuman.Die(deathDistance);
                 return;
             }
 
             if (keyboard[explosionKey].wasPressedThisFrame)
             {
-                Vector3 explosionCenter = targetSoldier.transform.TransformPoint(localExplosionOffset);
+                Vector3 explosionCenter = targetHuman.transform.TransformPoint(localExplosionOffset);
                 SoldierExplosionSystem.Detonate(explosionCenter, explosionProfile, gameObject);
                 return;
             }
 
             if (keyboard[bombDropKey].wasPressedThisFrame && bombPrefab != null)
             {
-                Vector3 spawnPosition = targetSoldier.transform.TransformPoint(localBombSpawnOffset);
+                Vector3 spawnPosition = targetHuman.transform.TransformPoint(localBombSpawnOffset);
                 Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
             }
         }
