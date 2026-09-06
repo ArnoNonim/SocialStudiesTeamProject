@@ -21,6 +21,10 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [Header("Death Force")]
         [SerializeField] private float defaultForce = 12f;
         [SerializeField] private Vector3 defaultLocalForceDirection = Vector3.back;
+
+        [Header("Distance Death Type")]
+        [SerializeField, Min(0f)] private float bodyExplosionDistance = 1.6f;
+        [SerializeField, Min(0f)] private float headExplosionDistance = 3f;
         
         [Header("Quest System")]
         [SerializeField] private QuestData targetQuest;
@@ -144,6 +148,34 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 damage.HitPoint,
                 direction,
                 damage.Force,
+                null);
+        }
+
+        protected override void HandleDistanceDeath(float distance, HumanDamage damage)
+        {
+            Vector3 direction = damage.Direction.sqrMagnitude > 0f
+                ? damage.Direction
+                : transform.TransformDirection(defaultLocalForceDirection);
+
+            DeathType distanceDeathType;
+            if (distance <= Mathf.Max(0f, bodyExplosionDistance))
+            {
+                distanceDeathType = DeathType.BodyExplosion;
+            }
+            else if (distance <= Mathf.Max(bodyExplosionDistance, headExplosionDistance))
+            {
+                distanceDeathType = DeathType.HeadExplosion;
+            }
+            else
+            {
+                distanceDeathType = DeathType.Ragdoll;
+            }
+
+            ExecuteDeath(
+                distanceDeathType,
+                damage.HitPoint,
+                direction,
+                defaultForce,
                 null);
         }
 
