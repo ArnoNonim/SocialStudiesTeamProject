@@ -24,12 +24,12 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [SerializeField] private float partAngularDamping = 1.6f;
         [SerializeField] private float maxPartAngularVelocity = 7f;
 
-        [Header("Detached Part Colliders")]
+        [Header("분리된 신체 부위 콜라이더")]
         [SerializeField, Range(0.1f, 1f)] private float limbColliderRadiusScale = 0.22f;
         [SerializeField, Range(0.1f, 1f)] private float limbColliderLengthScale = 0.65f;
         [SerializeField, Range(0.1f, 1f)] private float bodyColliderScale = 0.52f;
 
-        [Header("Bleeding")]
+        [Header("출혈")]
         [SerializeField] private Material bloodMaterial;
         [SerializeField] private float bleedingDuration = 2.8f;
 

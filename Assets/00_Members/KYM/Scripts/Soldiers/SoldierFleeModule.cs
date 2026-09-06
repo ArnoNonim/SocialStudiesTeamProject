@@ -1,5 +1,6 @@
 using _00_Members.KYM.Scripts.Soldiers.Fleeing;
 using _00_Members.KYM.Scripts.Soldiers.Movement;
+using KimLIb.AnimatorSystems;
 using KimLIb.ModuleSystems;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,10 +16,10 @@ namespace _00_Members.KYM.Scripts.Soldiers
             Crawling
         }
 
-        [Header("Flee Permission")]
+        [Header("도주 허용")]
         [SerializeField] private bool canFlee = true;
 
-        [Header("Threat")]
+        [Header("위협 감지")]
         [Tooltip("Optional. When empty, the active drone is found automatically.")]
         [SerializeField] private Transform droneOverride;
         [SerializeField, Min(1f)] private float detectionRadius = 24f;
@@ -27,28 +28,28 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [SerializeField, Min(0f)] private float minimumApproachSpeed = 0.35f;
         [SerializeField, Min(0.1f)] private float calmDelay = 2f;
 
-        [Header("Escape Route")]
+        [Header("도주 경로")]
         [SerializeField, Min(2f)] private float fleeDistance = 14f;
         [SerializeField, Min(0.1f)] private float repathInterval = 0.35f;
         [SerializeField, Range(0f, 60f)] private float routeVariation = 35f;
         [SerializeField, Min(90f)] private float turnSpeed = 420f;
         [SerializeField, Min(0.5f)] private float navMeshSampleRadius = 4f;
 
-        [Header("Trip")]
+        [Header("넘어짐")]
         [SerializeField] private bool canTrip = true;
         [Tooltip("Probability of tripping during one second of running.")]
         [SerializeField, Range(0f, 1f)] private float tripChancePerSecond = 0.08f;
         [SerializeField, Min(0f)] private float minimumRunTimeBeforeTrip = 1.5f;
         [SerializeField] private bool onlyTripOncePerFlee = true;
 
-        [Header("Animation States")]
-        [SerializeField] private string runStateName = "Base Layer.RUN";
-        [SerializeField] private string idleStateName = "Base Layer.IDLE";
-        [SerializeField] private string fallStateName = "Base Layer.FALL_DOWN";
-        [SerializeField] private string crawlStateName = "Base Layer.CRAWL";
+        [Header("애니메이션 상태")]
+        [SerializeField] private AnimParamSO runAnimation;
+        [SerializeField] private AnimParamSO idleAnimation;
+        [SerializeField] private AnimParamSO fallAnimation;
+        [SerializeField] private AnimParamSO crawlAnimation;
         [SerializeField, Min(0f)] private float transitionDuration = 0.2f;
 
-        [Header("Animation Timing Fallback")]
+        [Header("애니메이션 시간 대체값")]
         [Tooltip("Used when the fall state is missing or cannot report completion.")]
         [SerializeField, Min(0.1f)] private float fallDuration = 0.9f;
 
@@ -63,7 +64,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
         private EscapePosture _posture = EscapePosture.Running;
         private bool _isFleeing;
         private bool _initialApplyRootMotion;
-        private bool _initialKinematic;
         private bool _hasTrippedThisFlee;
         private float _nextRepathTime;
         private float _safeSince = -1f;
@@ -96,7 +96,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
             _animator = owner.GetComponentInChildren<Animator>(true);
             _rootRigidbody = owner.GetComponent<Rigidbody>();
             _initialApplyRootMotion = _animator != null && _animator.applyRootMotion;
-            _initialKinematic = _rootRigidbody != null && _rootRigidbody.isKinematic;
             _threatSensor = new FleeThreatSensor(droneOverride);
             _routePlanner = new NavMeshEscapeRoutePlanner(
                 fleeDistance,
@@ -245,7 +244,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
             _posture = EscapePosture.Falling;
             _postureElapsed = 0f;
             _runningElapsed = 0f;
-            _activePostureStateHash = _animationPlayer.Play(fallStateName);
+            _activePostureStateHash = _animationPlayer.Play(fallAnimation);
             _navigation?.StopPath();
         }
 
@@ -254,7 +253,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
             _posture = EscapePosture.Crawling;
             _postureElapsed = 0f;
             _nextRepathTime = 0f;
-            _activePostureStateHash = _animationPlayer.Play(crawlStateName);
+            _activePostureStateHash = _animationPlayer.Play(crawlAnimation);
         }
 
         private void BeginRunning()
@@ -263,7 +262,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
             _postureElapsed = 0f;
             _runningElapsed = 0f;
             _nextRepathTime = 0f;
-            _activePostureStateHash = _animationPlayer.Play(runStateName);
+            _activePostureStateHash = _animationPlayer.Play(runAnimation);
         }
 
         private bool IsCurrentAnimationFinished(float fallbackDuration)
@@ -287,8 +286,13 @@ namespace _00_Members.KYM.Scripts.Soldiers
 
             if (_rootRigidbody != null)
             {
-                _rootRigidbody.linearVelocity = Vector3.zero;
-                _rootRigidbody.angularVelocity = Vector3.zero;
+                if (!_rootRigidbody.isKinematic)
+                {
+                    _rootRigidbody.linearVelocity = Vector3.zero;
+                    _rootRigidbody.angularVelocity = Vector3.zero;
+                }
+
+                _rootRigidbody.useGravity = false;
                 _rootRigidbody.isKinematic = true;
             }
 
@@ -317,13 +321,20 @@ namespace _00_Members.KYM.Scripts.Soldiers
 
             if (_animator != null)
             {
-                _animationPlayer.Play(idleStateName);
+                _animationPlayer.Play(idleAnimation);
                 _animator.applyRootMotion = _initialApplyRootMotion;
             }
 
             if (_rootRigidbody != null && (_soldier == null || !_soldier.IsDead))
             {
-                _rootRigidbody.isKinematic = _initialKinematic;
+                if (!_rootRigidbody.isKinematic)
+                {
+                    _rootRigidbody.linearVelocity = Vector3.zero;
+                    _rootRigidbody.angularVelocity = Vector3.zero;
+                }
+
+                _rootRigidbody.useGravity = false;
+                _rootRigidbody.isKinematic = true;
             }
         }
 

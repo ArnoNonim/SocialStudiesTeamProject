@@ -6,22 +6,22 @@ namespace _00_Members.KYM.Scripts.Soldiers.Explosions
     [Serializable]
     public sealed class ExplosionProfile
     {
-        [Header("Range")]
+        [Header("범위")]
         [SerializeField, Min(0.1f)] private float radius = 8f;
         [SerializeField, Min(0.1f)] private float lethalRadius = 5f;
         [SerializeField, Min(0f)] private float bodyExplosionRadius = 1.6f;
 
-        [Header("Blast Force")]
+        [Header("폭발력")]
         [SerializeField, Min(0f)] private float force = 18f;
         [SerializeField, Min(0f)] private float upwardModifier = 0.35f;
         [SerializeField, Min(0.1f)] private float forceFalloffExponent = 1.35f;
 
-        [Header("Cover")]
+        [Header("엄폐물 판정")]
         [SerializeField, Range(0f, 1f)] private float coveredExposure = 0.2f;
         [SerializeField] private LayerMask affectedLayers = ~0;
         [SerializeField] private LayerMask obstructionLayers = ~0;
 
-        [Header("Death Variation")]
+        [Header("사망 연출 분기")]
         [SerializeField, Range(0f, 1f)] private float headExplosionChance = 0.05f;
 
         public float Radius => Mathf.Max(0.1f, radius);

@@ -10,13 +10,13 @@ namespace _00_Members.KYM.Scripts.Humans.Effects
         private const string MosaicObjectName = "Face Mosaic Particle";
         private const string MosaicShaderName = "KYM/Face Mosaic Particle";
 
-        [Header("Face Tracking")]
+        [Header("얼굴 추적")]
         [SerializeField] private Transform head;
         [Tooltip("Offset from the humanoid Head bone. Positive Z normally points toward the face.")]
         [SerializeField] private Vector3 localOffset = new Vector3(0f, 0.035f, 0.13f);
         [SerializeField] private Vector2 worldSize = new Vector2(0.3f, 0.38f);
 
-        [Header("Mosaic")]
+        [Header("모자이크")]
         [SerializeField, Range(2f, 64f)] private float blockSize = 12f;
         [SerializeField, Range(2f, 32f)] private float colorSteps = 10f;
         [SerializeField, Range(0f, 1f)] private float opacity = 1f;

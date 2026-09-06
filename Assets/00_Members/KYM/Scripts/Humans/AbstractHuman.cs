@@ -6,7 +6,7 @@ namespace _00_Members.KYM.Scripts.Humans
 {
     public abstract class AbstractHuman : ModuleOwner, IDamageable
     {
-        [Header("Human Vitality")]
+        [Header("생명력")]
         [SerializeField, Min(1f)] private float maxHealth = 100f;
         [SerializeField] private float currentHealth;
 
