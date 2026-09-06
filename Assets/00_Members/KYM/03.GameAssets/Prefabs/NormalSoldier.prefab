@@ -2023,8 +2023,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2140,10 +2140,10 @@ MonoBehaviour:
   tripChancePerSecond: 0.05
   minimumRunTimeBeforeTrip: 1.5
   onlyTripOncePerFlee: 1
-  runStateName: Base Layer.RUN
-  idleStateName: Base Layer.IDLE
-  fallStateName: Base Layer.FALL_DOWN
-  crawlStateName: Base Layer.CRAWL
+  runAnimation: {fileID: 11400000, guid: 3820fb4a23ca68e4eb3361aca6ee7951, type: 2}
+  idleAnimation: {fileID: 11400000, guid: 057a9a0e71d39424eb58ec62cf606232, type: 2}
+  fallAnimation: {fileID: 11400000, guid: c39e5da8174b4dc4a88a32c073ee106d, type: 2}
+  crawlAnimation: {fileID: 11400000, guid: d4af6eb9285c4ed5b99b43d184ff217e, type: 2}
   transitionDuration: 0.2
   fallDuration: 1.5
 --- !u!114 &1113582974278953157

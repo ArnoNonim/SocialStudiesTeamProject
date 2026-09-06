@@ -10,7 +10,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
 {
     public class Soldier : AbstractHuman
     {
-        [Header("Death Effects")]
+        [Header("사망 효과")]
         [SerializeField] private GameObject bodyExplosionEffect;
         [SerializeField] private GameObject headExplosionEffect;
         [SerializeField] private GameObject detachedHeadPrefab;
@@ -18,15 +18,15 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [SerializeField] private Transform neckBone;
         [SerializeField] private float spawnedObjectLifetime = 8f;
 
-        [Header("Death Force")]
+        [Header("사망 물리력")]
         [SerializeField] private float defaultForce = 12f;
         [SerializeField] private Vector3 defaultLocalForceDirection = Vector3.back;
 
-        [Header("Distance Death Type")]
+        [Header("거리별 사망 유형")]
         [SerializeField, Min(0f)] private float bodyExplosionDistance = 1.6f;
         [SerializeField, Min(0f)] private float headExplosionDistance = 3f;
         
-        [Header("Quest System")]
+        [Header("퀘스트 시스템")]
         [SerializeField] private QuestData targetQuest;
 
         private Collider[] _rootColliders;
@@ -37,8 +37,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
         private readonly List<GameObject> _spawnedDeathObjects = new List<GameObject>();
         private Vector3 _initialLocalPosition;
         private Quaternion _initialLocalRotation;
-        private bool _initialRootKinematic;
-        private bool _initialRootUseGravity;
         private bool _initialAnimatorEnabled;
 
         public SoldierMover Mover { get; private set; }
@@ -70,8 +68,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
             _rootRigidbody = GetComponent<Rigidbody>();
             _initialLocalPosition = transform.localPosition;
             _initialLocalRotation = transform.localRotation;
-            _initialRootKinematic = _rootRigidbody != null && _rootRigidbody.isKinematic;
-            _initialRootUseGravity = _rootRigidbody != null && _rootRigidbody.useGravity;
+            DisableRootPhysics();
             _initialAnimatorEnabled = Renderer?.Animator != null && Renderer.Animator.enabled;
 
             if (headBone == null && Renderer?.Animator != null && Renderer.Animator.isHuman)
@@ -94,12 +91,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
         {
             ClearSpawnedDeathObjects();
 
-            if (_rootRigidbody != null)
-            {
-                _rootRigidbody.linearVelocity = Vector3.zero;
-                _rootRigidbody.angularVelocity = Vector3.zero;
-                _rootRigidbody.isKinematic = true;
-            }
+            DisableRootPhysics();
 
             transform.localPosition = _initialLocalPosition;
             transform.localRotation = _initialLocalRotation;
@@ -128,11 +120,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 }
             }
 
-            if (_rootRigidbody != null)
-            {
-                _rootRigidbody.useGravity = _initialRootUseGravity;
-                _rootRigidbody.isKinematic = _initialRootKinematic;
-            }
+            DisableRootPhysics();
 
             Mover?.ResetMovement(transform.position);
             base.Revive();
@@ -321,12 +309,24 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 rootCollider.enabled = false;
             }
 
-            if (_rootRigidbody != null)
+            DisableRootPhysics();
+        }
+
+        private void DisableRootPhysics()
+        {
+            if (_rootRigidbody == null)
+            {
+                return;
+            }
+
+            if (!_rootRigidbody.isKinematic)
             {
                 _rootRigidbody.linearVelocity = Vector3.zero;
                 _rootRigidbody.angularVelocity = Vector3.zero;
-                _rootRigidbody.isKinematic = true;
             }
+
+            _rootRigidbody.useGravity = false;
+            _rootRigidbody.isKinematic = true;
         }
 
         private void DisableOriginalColliders()

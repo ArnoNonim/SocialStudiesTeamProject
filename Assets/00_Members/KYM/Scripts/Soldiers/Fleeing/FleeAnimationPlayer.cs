@@ -1,10 +1,11 @@
+using KimLIb.AnimatorSystems;
 using UnityEngine;
 
 namespace _00_Members.KYM.Scripts.Soldiers.Fleeing
 {
     internal interface IFleeAnimationPlayer
     {
-        int Play(string stateName);
+        int Play(AnimParamSO animationState);
         bool IsFinished(int stateHash, float elapsed, float fallbackDuration);
     }
 
@@ -19,17 +20,23 @@ namespace _00_Members.KYM.Scripts.Soldiers.Fleeing
             _transitionDuration = transitionDuration;
         }
 
-        public int Play(string stateName)
+        public int Play(AnimParamSO animationState)
         {
-            if (_animator == null || string.IsNullOrWhiteSpace(stateName))
+            if (_animator == null || animationState == null ||
+                string.IsNullOrWhiteSpace(animationState.ParamName))
             {
                 return 0;
             }
 
-            int stateHash = Animator.StringToHash(stateName);
+            int stateHash = animationState.ParamHash;
             if (!_animator.HasState(0, stateHash))
             {
-                return 0;
+                string layerName = _animator.GetLayerName(0);
+                stateHash = Animator.StringToHash($"{layerName}.{animationState.ParamName}");
+                if (!_animator.HasState(0, stateHash))
+                {
+                    return 0;
+                }
             }
 
             _animator.CrossFadeInFixedTime(stateHash, _transitionDuration);

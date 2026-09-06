@@ -14,12 +14,12 @@ namespace _00_Members.KYM.Scripts.Test
         [SerializeField] private Key deathKey = Key.K;
         [SerializeField] private Key resetKey = Key.R;
 
-        [Header("Explosion Test")]
+        [Header("폭발 테스트")]
         [SerializeField] private Key explosionKey = Key.B;
         [SerializeField] private Vector3 localExplosionOffset = new Vector3(0f, 0f, -2f);
         [SerializeField] private ExplosionProfile explosionProfile = new ExplosionProfile();
 
-        [Header("Bomb Drop Test")]
+        [Header("폭탄 투하 테스트")]
         [SerializeField] private Key bombDropKey = Key.V;
         [SerializeField] private GameObject bombPrefab;
         [SerializeField] private Vector3 localBombSpawnOffset = new Vector3(0f, 10f, -2f);
