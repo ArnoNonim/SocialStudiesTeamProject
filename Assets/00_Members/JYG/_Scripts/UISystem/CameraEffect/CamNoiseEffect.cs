@@ -56,7 +56,6 @@ namespace _00_Members.JYG._Scripts.UISystem.CameraEffect
 
         private IEnumerator Co_DoNoise()
         {
-            // 1. minTransition -> maxTransition (duration 동안)
             float elapsedTime = 0f;
             while (elapsedTime < duration)
             {
@@ -71,7 +70,6 @@ namespace _00_Members.JYG._Scripts.UISystem.CameraEffect
             // 2. 대기
             yield return new WaitForSeconds(waitTime);
 
-            // 3. maxTransition -> minTransition (duration 동안)
             elapsedTime = 0f;
             while (elapsedTime < duration)
             {
@@ -83,6 +81,40 @@ namespace _00_Members.JYG._Scripts.UISystem.CameraEffect
             SetTransitionValue(minTransition);
 
             _noiseCoroutine = null;
+        }
+        
+        [ContextMenu("Turn Off (Permanent)")]
+        public void TurnOff()
+        {
+            if (_noiseCoroutine != null)
+            {
+                StopCoroutine(_noiseCoroutine);
+            }
+
+            _noiseCoroutine = StartCoroutine(Co_TurnOff());
+        }
+
+        private IEnumerator Co_TurnOff()
+        {
+            float elapsedTime = 0f;
+            float startVal = GetCurrentTransition();
+
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float currentVal = Mathf.Lerp(startVal, maxTransition, elapsedTime / duration);
+                SetTransitionValue(currentVal);
+                yield return null;
+            }
+            SetTransitionValue(maxTransition);
+
+            OnBlack?.Invoke();
+            _noiseCoroutine = null;
+        }
+
+        private float GetCurrentTransition()
+        {
+            return _instancedMaterial != null ? _instancedMaterial.GetFloat(TransitionID) : minTransition;
         }
 
         private void SetTransitionValue(float value)
