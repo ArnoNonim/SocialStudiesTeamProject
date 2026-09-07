@@ -39819,6 +39819,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4030149510927650, guid: d8d4e51635796413689623f47b75e9fb, type: 3}
   m_PrefabInstance: {fileID: 1453369912}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1514508505 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8758311163567659163, guid: 0b72cbcf6749a714b988c1ca31295d20, type: 3}
+  m_PrefabInstance: {fileID: 6164684869454343106}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1536830421
 GameObject:
   m_ObjectHideFlags: 1
@@ -79006,12 +79011,16 @@ PrefabInstance:
       value: Drone
       objectReference: {fileID: 0}
     - target: {fileID: 6557101543119760240, guid: 0b72cbcf6749a714b988c1ca31295d20, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1514508505}
+    - target: {fileID: 6557101543119760240, guid: 0b72cbcf6749a714b988c1ca31295d20, type: 3}
       propertyPath: fxPoolFolder
       value: 
       objectReference: {fileID: 1042337046}
     - target: {fileID: 6557101543119760240, guid: 0b72cbcf6749a714b988c1ca31295d20, type: 3}
       propertyPath: isSuicideDrone
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6557101543119760240, guid: 0b72cbcf6749a714b988c1ca31295d20, type: 3}
       propertyPath: grenadePoolFolder

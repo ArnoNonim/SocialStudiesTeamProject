@@ -81,6 +81,12 @@ namespace _00_Members.PTY.Scripts
         private void OnCollisionEnter(Collision collision)
         {
             if (!_isExplodable || _hasExploded) return;
+            Explode(collision.contacts[0].point);
+        }
+        
+        public void Explode(Vector3 point)
+        {
+            if (_hasExploded) return;
             _hasExploded = true;
 
             int hitCount = Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, _results, targetLayer);
@@ -88,15 +94,14 @@ namespace _00_Members.PTY.Scripts
             for (int i = 0; i < hitCount; i++)
             {
                 AbstractHuman hitHuman = _results[i].GetComponentInChildren<AbstractHuman>();
-
                 if (hitHuman == null) continue;
 
                 hitHuman.Die(Vector3.Distance(transform.position, hitHuman.transform.position));
                 Debug.Log($"병사 {hitHuman.gameObject.name} 킬");
             }
-            
+
             GrenadeExplosionFX.Play(
-                collision.contacts[0].point,
+                point,
                 explosionMats[Random.Range(0, explosionMats.Length)],
                 exSndClips[Random.Range(0, exSndClips.Length)],
                 impulseSource
