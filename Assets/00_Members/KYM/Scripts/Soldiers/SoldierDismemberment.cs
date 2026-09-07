@@ -38,6 +38,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
 
         private SkinnedMeshRenderer[] _skinnedRenderers;
         private Transform _ownerTransform;
+        private readonly List<Mesh> _generatedMeshes = new List<Mesh>();
 
         public void Initialize(ModuleOwner owner)
         {
@@ -60,7 +61,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
         public List<GameObject> Explode(
             Vector3 explosionCenter,
             float force,
-            float lifetime,
             bool includeGeneratedHead = true)
         {
             Dictionary<BodySection, GameObject> sectionObjects = new Dictionary<BodySection, GameObject>();
@@ -82,7 +82,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 if (TryFinalizeSection(section.Key, section.Value, explosionCenter, force))
                 {
                     spawnedParts.Add(section.Value);
-                    Destroy(section.Value, lifetime);
                 }
                 else
                 {
@@ -92,12 +91,27 @@ namespace _00_Members.KYM.Scripts.Soldiers
 
             IgnorePartToPartCollisions(spawnedParts);
 
-            foreach (Mesh generatedMesh in generatedMeshes)
-            {
-                Destroy(generatedMesh, lifetime);
-            }
+            _generatedMeshes.AddRange(generatedMeshes);
 
             return spawnedParts;
+        }
+
+        public void ClearGeneratedMeshes()
+        {
+            foreach (Mesh generatedMesh in _generatedMeshes)
+            {
+                if (generatedMesh != null)
+                {
+                    Destroy(generatedMesh);
+                }
+            }
+
+            _generatedMeshes.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            ClearGeneratedMeshes();
         }
 
         public GameObject AttachPersistentLeak(Transform parent, Vector3 worldPosition, Vector3 outward)
@@ -515,10 +529,70 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 Quaternion.LookRotation(outward.normalized, upReference));
             emitterRoot.transform.SetParent(parent, true);
 
+            CreateRadialSplash(emitterRoot.transform);
             CreatePressureJet(emitterRoot.transform);
             CreateStumpCover(emitterRoot.transform);
             CreateGravityDrips(emitterRoot.transform);
+            Destroy(emitterRoot, bleedingDuration);
             return emitterRoot;
+        }
+
+        private void CreateRadialSplash(Transform parent)
+        {
+            GameObject splashObject = new GameObject("RadialBloodSplash");
+            splashObject.layer = parent.gameObject.layer;
+            splashObject.transform.SetParent(parent, false);
+
+            ParticleSystem system = splashObject.AddComponent<ParticleSystem>();
+            system.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+            ParticleSystem.MainModule main = system.main;
+            main.duration = 0.55f;
+            main.loop = false;
+            main.playOnAwake = false;
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
+            main.startLifetime = new ParticleSystem.MinMaxCurve(0.28f, 0.78f);
+            main.startSpeed = new ParticleSystem.MinMaxCurve(1.4f, 4.6f);
+            main.startSize = new ParticleSystem.MinMaxCurve(0.018f, 0.065f);
+            main.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
+            main.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(0.34f, 0.004f, 0.006f, 0.98f),
+                new Color(0.07f, 0.001f, 0.002f, 0.92f));
+            main.gravityModifier = 1.25f;
+            main.maxParticles = 110;
+
+            ParticleSystem.EmissionModule emission = system.emission;
+            emission.enabled = true;
+            emission.rateOverTime = 0f;
+            emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 38, 62) });
+
+            ParticleSystem.ShapeModule shape = system.shape;
+            shape.enabled = true;
+            shape.shapeType = ParticleSystemShapeType.Sphere;
+            shape.radius = 0.045f;
+            shape.radiusThickness = 1f;
+
+            ConfigureBleedingColor(system, 0.98f);
+            ConfigureBleedingNoise(system, 0.06f, 0.18f);
+            ConfigureBleedingCollision(system, 0.32f);
+            ConfigureBleedingTexture(system);
+
+            ParticleSystem.TrailModule trails = system.trails;
+            trails.enabled = true;
+            trails.ratio = 0.5f;
+            trails.lifetime = 0.08f;
+            trails.dieWithParticles = true;
+            trails.minVertexDistance = 0.018f;
+            trails.worldSpace = true;
+
+            ParticleSystemRenderer renderer = system.GetComponent<ParticleSystemRenderer>();
+            renderer.material = bloodMaterial;
+            renderer.trailMaterial = bloodMaterial;
+            renderer.renderMode = ParticleSystemRenderMode.Stretch;
+            renderer.lengthScale = 2.8f;
+            renderer.velocityScale = 0.16f;
+
+            system.Play();
         }
 
         private void CreateStumpCover(Transform parent)

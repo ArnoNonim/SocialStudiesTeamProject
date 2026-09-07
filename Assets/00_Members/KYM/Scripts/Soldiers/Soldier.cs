@@ -38,6 +38,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
         private bool[] _initialOriginalColliderStates;
         private Rigidbody _rootRigidbody;
         private readonly List<GameObject> _spawnedDeathObjects = new List<GameObject>();
+        private readonly List<Mesh> _spawnedDeathMeshes = new List<Mesh>();
         private Vector3 _initialLocalPosition;
         private Quaternion _initialLocalRotation;
         private bool _initialAnimatorEnabled;
@@ -93,6 +94,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
         public override void Revive()
         {
             ClearSpawnedDeathObjects();
+            Dismemberment?.ClearGeneratedMeshes();
 
             DisableRootPhysics();
 
@@ -266,7 +268,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
                         _spawnedDeathObjects.AddRange(Dismemberment.Explode(
                             bodyExplosionForceOrigin,
                             force,
-                            spawnedObjectLifetime,
                             false));
                     }
 
@@ -300,7 +301,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
                         headExplosionEffect != null ? headExplosionEffect : bodyExplosionEffect,
                         neckPosition,
                         upwardRotation,
-                        BloodBurstMode.Directional);
+                        BloodBurstMode.RadialExplosion);
                     GameObject detachedHead = SpawnDetachedHead(hitPoint, forceDirection, force);
                     AttachHeadExplosionBleeding(detachedHead, neckPosition);
                     if (explosionContext.HasValue)
@@ -389,7 +390,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 detachedRigidbody.AddForce(forceDirection.normalized * force, ForceMode.Impulse);
             }
 
-            Destroy(detachedHead, spawnedObjectLifetime);
             return detachedHead;
         }
 
@@ -452,6 +452,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
                     continue;
                 }
 
+                _spawnedDeathMeshes.Add(detachedMesh);
+
                 GameObject visualPart = new GameObject(sourceRenderer.name);
                 visualPart.transform.SetParent(detachedHead.transform, false);
                 MeshFilter meshFilter = visualPart.AddComponent<MeshFilter>();
@@ -461,7 +463,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 meshRenderer.shadowCastingMode = sourceRenderer.shadowCastingMode;
                 meshRenderer.receiveShadows = sourceRenderer.receiveShadows;
 
-                Destroy(detachedMesh, spawnedObjectLifetime);
                 if (!hasBounds)
                 {
                     combinedLocalBounds = meshBounds;
@@ -784,6 +785,16 @@ namespace _00_Members.KYM.Scripts.Soldiers
             }
 
             _spawnedDeathObjects.Clear();
+
+            foreach (Mesh spawnedMesh in _spawnedDeathMeshes)
+            {
+                if (spawnedMesh != null)
+                {
+                    Destroy(spawnedMesh);
+                }
+            }
+
+            _spawnedDeathMeshes.Clear();
         }
     }
 }
