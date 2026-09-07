@@ -39,7 +39,7 @@ Material:
     - _FogBottom: 1
     - _FogEnd: 0.107
     - _FogIntens: 1
-    - _FogStart: 0
+    - _FogStart: 0.231
     - _MieIntens: 0
     - _MieSize: 0.359
     - _Rotation: 251
