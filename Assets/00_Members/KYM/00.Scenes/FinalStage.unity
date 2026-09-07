@@ -622,6 +622,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4954274653457217519, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
+      propertyPath: m_text
+      value: "\uC0AC\uC0B4 \uC644\uB8CC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954274653457217519, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.008798455
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954274653457217519, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954274653457217519, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.8490566
+      objectReference: {fileID: 0}
     - target: {fileID: 6468188972000835455, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
       propertyPath: m_Name
       value: JYG_Pack
