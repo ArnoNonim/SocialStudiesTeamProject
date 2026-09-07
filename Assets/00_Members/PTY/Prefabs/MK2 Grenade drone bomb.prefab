@@ -271,5 +271,5 @@ MonoBehaviour:
   detectionRadius: 15
   targetLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 134217728
   rotationSpeed: 1.25

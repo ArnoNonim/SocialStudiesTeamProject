@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using _00_Members.JYG._Scripts.UISystem;
 using _00_Members.JYG._Scripts.UISystem.Quest;
 using _00_Members.KYM.Scripts.Humans;
 using _00_Members.KYM.Scripts.Soldiers.DeathEvent;
@@ -26,9 +28,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [SerializeField, Min(0f)] private float bodyExplosionDistance = 1.6f;
         [SerializeField, Min(0f)] private float headExplosionDistance = 3f;
         
-        [Header("퀘스트 시스템")]
-        [SerializeField] private QuestData targetQuest;
-
         private Collider[] _rootColliders;
         private bool[] _initialRootColliderStates;
         private Collider[] _originalColliders;
@@ -179,8 +178,6 @@ namespace _00_Members.KYM.Scripts.Soldiers
         public void Die(DeathType deathType, Vector3 hitPoint, Vector3 forceDirection, float force)
         {
             DieInternal(deathType, hitPoint, forceDirection, force, null);
-            if(QuestManager.Instance != null && targetQuest != null)
-                QuestManager.Instance.PlusGoal(targetQuest, 1);
         }
 
         public void DieFromExplosion(

@@ -1,10 +1,13 @@
 using System;
+using _00_Members.KYM.Scripts.Humans;
+using KimLIb.ModuleSystems;
 using UnityEngine;
 
 namespace _00_Members.JYG._Scripts.UISystem
 {
-    public class ScannerUI : MonoBehaviour
+    public class ScannerUI : MonoBehaviour, IModule
     {
+        private AbstractHuman _human;
         [SerializeField] private Transform followTarget;
         [SerializeField] private GameObject scannerSquare;
         [SerializeField] private LayerMask targetMask;
@@ -53,6 +56,18 @@ namespace _00_Members.JYG._Scripts.UISystem
             transform.position = followTarget.position;
             transform.up = mainCam.transform.up;
             transform.forward = mainCam.transform.forward;
+        }
+
+        public void Initialize(ModuleOwner owner)
+        {
+            _human = owner as AbstractHuman;
+            _human.Died += HandleHumanDead;
+        }
+
+        private void HandleHumanDead()
+        {
+            _human.Died -= HandleHumanDead;
+            gameObject.SetActive(false);
         }
     }
 }
