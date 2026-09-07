@@ -380,6 +380,12 @@ namespace _00_Members.KYM.Scripts.Soldiers
             if (detachedRigidbody != null)
             {
                 detachedRigidbody.isKinematic = false;
+                detachedRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+                detachedRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+                detachedRigidbody.solverIterations = Mathf.Max(detachedRigidbody.solverIterations, 12);
+                detachedRigidbody.solverVelocityIterations = Mathf.Max(
+                    detachedRigidbody.solverVelocityIterations,
+                    4);
                 detachedRigidbody.AddForce(forceDirection.normalized * force, ForceMode.Impulse);
             }
 
@@ -485,6 +491,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
             headRigidbody.mass = 0.8f;
             headRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             headRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            headRigidbody.solverIterations = 12;
+            headRigidbody.solverVelocityIterations = 4;
             AttachCurrentFaceMosaic(detachedHead.transform);
             return detachedHead;
         }

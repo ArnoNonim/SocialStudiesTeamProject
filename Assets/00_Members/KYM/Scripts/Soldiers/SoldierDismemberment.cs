@@ -383,6 +383,8 @@ namespace _00_Members.KYM.Scripts.Soldiers
             rigidbody.mass = section == BodySection.Torso ? 3.5f : 1.35f;
             rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            rigidbody.solverIterations = 12;
+            rigidbody.solverVelocityIterations = 4;
             rigidbody.angularDamping = partAngularDamping;
             rigidbody.maxAngularVelocity = maxPartAngularVelocity;
             rigidbody.ResetCenterOfMass();

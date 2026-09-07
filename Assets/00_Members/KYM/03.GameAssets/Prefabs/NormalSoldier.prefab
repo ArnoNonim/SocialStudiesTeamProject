@@ -2065,6 +2065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c0615019def8b448be3db7aea06be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.KYM.Scripts.Soldiers.Soldier
+  targetQuest: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
   bodyExplosionEffect: {fileID: 0}
@@ -2077,7 +2078,8 @@ MonoBehaviour:
   defaultLocalForceDirection: {x: 0, y: 0, z: 0}
   bodyExplosionDistance: 5
   headExplosionDistance: 10
-  targetQuest: {fileID: 0}
+  closeRangePartForce: 5
+  farRangePartForce: 1
 --- !u!114 &2114303859440067916
 MonoBehaviour:
   m_ObjectHideFlags: 0
