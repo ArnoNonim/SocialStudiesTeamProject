@@ -380,6 +380,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4030149510927650, guid: d8d4e51635796413689623f47b75e9fb, type: 3}
   m_PrefabInstance: {fileID: 422490980}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &474126131
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 246.41544
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 51.52949
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 159.30678
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320248414084895334, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265812942632259706, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c720f82c49b090c4dbc9a6d404dbe8f0, type: 3}
 --- !u!1 &630402723
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +449,7 @@ GameObject:
   - component: {fileID: 630402726}
   - component: {fileID: 630402725}
   - component: {fileID: 630402727}
+  - component: {fileID: 630402728}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -563,7 +621,34 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 630402725}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 630402728}
+        m_TargetAssemblyTypeName: _00_Members.JYG._Scripts.UISystem.StartButton,
+          Assembly-CSharp
+        m_MethodName: OnStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &630402728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630402723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e6c1100da99184392f1f07c52f2295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartButton
+  firstDialog: {fileID: 11400000, guid: e4b8ec1bda1667d4ba47c41c9678f822, type: 2}
+  sceneData: {fileID: 11400000, guid: fce4b50e298bcac4f8e1caad7b8e8f1c, type: 2}
 --- !u!1001 &675175770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1705,3 +1790,4 @@ SceneRoots:
   - {fileID: 1445241179}
   - {fileID: 1844299703}
   - {fileID: 1237423312}
+  - {fileID: 474126131}

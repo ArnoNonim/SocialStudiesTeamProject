@@ -35,7 +35,8 @@ namespace _00_Members.JYG._Scripts.Scene
                 PlayerPrefs.SetInt(StageNumberKey, PlayerPrefs.GetInt(StageNumberKey, 0) + 1);
                 GameManager.Instance.ChangeScene(sceneData.nextScene);
                 DialogContainer.CurrentDialogData = sceneData.dialogData;
-                clearText.enabled = true;
+                if(clearText != null)
+                    clearText.enabled = true;
             }
         }
     }

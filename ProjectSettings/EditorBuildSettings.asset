@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00_Members/JYG/Scenes/Stage02.unity
     guid: db1d0a4731e885f49a248ab756138a98
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Stage03.unity
+    guid: 83e2a16475760494cb5776f3531fa925
+  - enabled: 1
+    path: Assets/00_Members/JYG/Scenes/Stage04.unity
+    guid: ddbaa36c4c452164587e0333d9b76794
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

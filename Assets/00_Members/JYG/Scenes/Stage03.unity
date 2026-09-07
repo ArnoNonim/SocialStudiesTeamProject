@@ -256,6 +256,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4225678588242395452, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
+      propertyPath: sceneData
+      value: 
+      objectReference: {fileID: 11400000, guid: f053ab2e4c73be246a2395399040c4ab, type: 2}
     - target: {fileID: 6468188972000835455, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
       propertyPath: m_Name
       value: JYG_Pack
@@ -295,15 +299,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1288730403069520673, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.5
+      value: -13.49
       objectReference: {fileID: 0}
     - target: {fileID: 1288730403069520673, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.29047394
+      value: -7.71
       objectReference: {fileID: 0}
     - target: {fileID: 1288730403069520673, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.3
+      value: 9.24
       objectReference: {fileID: 0}
     - target: {fileID: 1288730403069520673, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
       propertyPath: m_LocalRotation.w
@@ -340,19 +344,15 @@ PrefabInstance:
     - target: {fileID: 4823923254976809265, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
       propertyPath: targetQuest
       value: 
-      objectReference: {fileID: 11400000, guid: db35adc96a8e14f45b5c5c5dc13c14d9, type: 2}
+      objectReference: {fileID: 11400000, guid: 8ca61131bf59be44084c0e8ebadd3b0b, type: 2}
     - target: {fileID: 8244137254237161443, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
       propertyPath: canFlee
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8244137254237161443, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
       propertyPath: canTrip
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8244137254237161443, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
-      propertyPath: idleAnimation
-      value: 
-      objectReference: {fileID: 11400000, guid: 0e174ca2149c6164caecbef2af01be5a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -869,52 +869,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1373541329721501263, guid: a15bad1d65260bd4792b50848481f2e8, type: 3}
   m_PrefabInstance: {fileID: 1932182512}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1945909767
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1945909769}
-  - component: {fileID: 1945909768}
-  m_Layer: 0
-  m_Name: Stage01 Quest Helper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1945909768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1945909767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ada54332af31d4cb3693e0b44c7146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.UISystem.Quest.QuestHelper
-  vKeyQuestData: {fileID: 11400000, guid: 95bb3277da9db404d9e34b14134a81c6, type: 2}
-  spaceKeyQuestData: {fileID: 11400000, guid: 53c9104fe30ae15419fa29a025f95dc7, type: 2}
---- !u!4 &1945909769
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1945909767}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.40655, y: 164.75035, z: -151.50688}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2057923468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,4 +1009,3 @@ SceneRoots:
   - {fileID: 1604864050}
   - {fileID: 1932182512}
   - {fileID: 774986924}
-  - {fileID: 1945909769}
