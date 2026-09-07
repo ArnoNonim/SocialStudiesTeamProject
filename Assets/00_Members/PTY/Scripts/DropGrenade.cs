@@ -11,7 +11,7 @@ namespace _00_Members.PTY.Scripts
         [SerializeField] private Material[] explosionMats;
         [SerializeField] private AudioClip[] exSndClips;
         [SerializeField] private Collider col;
-        
+
         public float detectionRadius = 5.0f;
         public LayerMask targetLayer;
 
@@ -23,24 +23,12 @@ namespace _00_Members.PTY.Scripts
         private bool _isExplodable;
         private bool _hasExploded;
 
-        private static PoolManager<DropGrenade> _pool;
         private static readonly WaitForSeconds ArmDelay = new(0.5f);
 
         private readonly Collider[] _results = new Collider[10];
 
-        public static void Initialize(DropGrenade prefab, Transform poolFolder,
-            GrenadeExplosionFX fxPrefab, Transform fxPoolFolder)
-        {
-            GrenadeExplosionFX.Initialize(fxPrefab, fxPoolFolder);
-            _pool ??= new PoolManager<DropGrenade>(prefab, poolFolder);
-        }
-
-        public static DropGrenade Spawn(Vector3 pos, Quaternion rot)
-        {
-            var g = _pool.Get();
-            g.transform.SetPositionAndRotation(pos, rot);
-            return g;
-        }
+        // static 풀 제거함. 스폰/릴리즈는 이제 전부 GrenadePoolManager.Instance를 통해 이뤄짐.
+        // -> 이 스크립트는 "내가 어떤 풀에 속해있는지" 신경 쓸 필요가 없어짐.
 
         private void Awake()
         {
@@ -83,7 +71,11 @@ namespace _00_Members.PTY.Scripts
             if (!_isExplodable || _hasExploded) return;
             Explode(collision.contacts[0].point);
         }
-        
+
+        /// <summary>
+        /// 충돌이든 수동 트리거(자폭 등)든 여기로 통일해서 터뜨림.
+        /// _isExplodable 체크 없이 즉발 가능함.
+        /// </summary>
         public void Explode(Vector3 point)
         {
             if (_hasExploded) return;
@@ -100,7 +92,8 @@ namespace _00_Members.PTY.Scripts
                 Debug.Log($"병사 {hitHuman.gameObject.name} 킬");
             }
 
-            GrenadeExplosionFX.Play(
+            // GrenadeExplosionFX도 static 풀 제거 완료 -> GrenadePoolManager 통해서 스폰함
+            GrenadePoolManager.Instance.SpawnFX(
                 point,
                 explosionMats[Random.Range(0, explosionMats.Length)],
                 exSndClips[Random.Range(0, exSndClips.Length)],
@@ -108,9 +101,9 @@ namespace _00_Members.PTY.Scripts
             );
 
             if (col != null) col.enabled = false;
-            _pool.Release(this);
+            GrenadePoolManager.Instance.ReleaseGrenade(this);
         }
-        
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
