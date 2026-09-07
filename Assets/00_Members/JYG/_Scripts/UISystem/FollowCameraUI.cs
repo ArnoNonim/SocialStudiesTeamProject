@@ -26,7 +26,7 @@ namespace _00_Members.JYG._Scripts.UISystem
             }
         }
 
-        void LateUpdate()
+        void FixedUpdate()
         {
             if (targetCamera == null) return;
 

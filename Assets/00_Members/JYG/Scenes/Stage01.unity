@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a933bc07ee801534bba38557d3152259, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -180,10 +180,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 562865875206250381, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
-      propertyPath: weight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 799988967805489226, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.65783
@@ -224,37 +220,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3167022035826238977, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 402653535
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860729883519859412, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860729883519859412, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860729883519859412, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860729883519859412, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4901758867626004266, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
-      propertyPath: weight
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6468188972000835455, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
       propertyPath: m_Name
       value: JYG_Pack
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484713071781768645, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
-      propertyPath: m_VolumeFrameworkUpdateModeOption
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -367,7 +335,7 @@ Transform:
   m_GameObject: {fileID: 774986923}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.46548, y: 118.55153, z: -57.28469}
+  m_LocalPosition: {x: -53.28, y: -101.8, z: -68.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -667,10 +635,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6919620185889788129, guid: dfa518a4b4452c2469979500977e68a1, type: 3}
-      propertyPath: grenadeAmount
-      value: 9999999
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -905,6 +869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2057923470}
   - component: {fileID: 2057923469}
+  - component: {fileID: 2057923471}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -948,6 +913,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1932182513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!114 &2057923471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057923468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &2122149539
 PrefabInstance:
   m_ObjectHideFlags: 0

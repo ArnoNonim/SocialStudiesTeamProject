@@ -86,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4954583772719997700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.UISystem.FollowCameraUI
   targetCamera: {fileID: 0}
   distanceFromCamera: 16
-  positionSmoothTime: 0.05
+  positionSmoothTime: 0.02
   rotationSmoothSpeed: 100
 --- !u!1 &7661553580937149422
 GameObject:
