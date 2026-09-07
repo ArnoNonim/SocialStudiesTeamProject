@@ -556,7 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.JYG._Scripts.UISystem.DialogSystem.DialogManager
   speakerText: {fileID: 1884970074}
   contentText: {fileID: 883936706}
-  defaultDialogData: {fileID: 11400000, guid: 4ce0ef7727161cb4497c6ceccd545664, type: 2}
+  defaultDialogData: {fileID: 11400000, guid: e4b8ec1bda1667d4ba47c41c9678f822, type: 2}
   typingSpeed: 0.05
 --- !u!4 &596062224
 Transform:
@@ -722,8 +722,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9\uD558\uC774\uC6A9"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 70ad7921c11a93249bb8f4ef1554f467, type: 2}
-  m_sharedMaterial: {fileID: 2502220711278563426, guid: 70ad7921c11a93249bb8f4ef1554f467, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ed3dcd6d2defb8f4eb77d143d757f9d5, type: 2}
+  m_sharedMaterial: {fileID: 6748137870103738069, guid: ed3dcd6d2defb8f4eb77d143d757f9d5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1240,8 +1240,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC774\uB984\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 70ad7921c11a93249bb8f4ef1554f467, type: 2}
-  m_sharedMaterial: {fileID: 2502220711278563426, guid: 70ad7921c11a93249bb8f4ef1554f467, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ed3dcd6d2defb8f4eb77d143d757f9d5, type: 2}
+  m_sharedMaterial: {fileID: 6748137870103738069, guid: ed3dcd6d2defb8f4eb77d143d757f9d5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1336,7 +1336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2031676729
 RectTransform:
   m_ObjectHideFlags: 0

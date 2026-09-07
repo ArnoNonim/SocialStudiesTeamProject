@@ -1,4 +1,5 @@
 using System;
+using _00_Members.JYG._Scripts.UISystem.Quest;
 using KimLIb.ModuleSystems;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ namespace _00_Members.KYM.Scripts.Humans
 {
     public abstract class AbstractHuman : ModuleOwner, IDamageable
     {
+        [Header("퀘스트 시스템")]
+        [SerializeField] private QuestData targetQuest;
+        
         [Header("생명력")]
         [SerializeField, Min(1f)] private float maxHealth = 100f;
         [SerializeField] private float currentHealth;
@@ -63,6 +67,9 @@ namespace _00_Members.KYM.Scripts.Humans
             {
                 return;
             }
+            
+            if(QuestManager.Instance != null && targetQuest != null)
+                QuestManager.Instance.PlusGoal(targetQuest, 1);
 
             float distanceInfo = float.IsNaN(distance)
                 ? float.PositiveInfinity
