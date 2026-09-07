@@ -27,7 +27,11 @@ namespace _00_Members.PTY.Scripts
                 },
                 actionOnGet: OnGet,
                 actionOnRelease: OnRelease,
-                actionOnDestroy: instance => Object.Destroy(instance.gameObject),
+                actionOnDestroy: instance =>
+                {
+                    // 씬 전환 등으로 이미 파괴된 인스턴스면 스킵 (미싱레퍼런스 방지)
+                    if (instance != null) Object.Destroy(instance.gameObject);
+                },
                 collectionCheck: false,
                 defaultCapacity: defaultCapacity,
                 maxSize: maxSize
@@ -44,6 +48,7 @@ namespace _00_Members.PTY.Scripts
 
         private void OnRelease(T instance)
         {
+            if (instance == null) return; // 파괴된 상태로 Release 들어오는 경우 방지
             if (instance is IPoolable p) p.OnDespawned();
             instance.gameObject.SetActive(false);
         }
@@ -56,6 +61,16 @@ namespace _00_Members.PTY.Scripts
         }
 
         public T Get() => _pool.Get();
-        public void Release(T instance) => _pool.Release(instance);
+
+        public void Release(T instance)
+        {
+            if (instance == null) return;
+            _pool.Release(instance);
+        }
+
+        /// <summary>
+        /// 풀 안의 대기 중인 인스턴스를 전부 정리함. 씬을 나가는 매니저의 OnDestroy에서 호출.
+        /// </summary>
+        public void Clear() => _pool.Clear();
     }
 }

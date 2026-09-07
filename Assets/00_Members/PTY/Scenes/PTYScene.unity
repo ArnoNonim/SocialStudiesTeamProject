@@ -39184,6 +39184,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4326422142987956, guid: 64c9ae437b09449c8a98278c23dbd471, type: 3}
   m_PrefabInstance: {fileID: 487611762}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &709993975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 709993977}
+  - component: {fileID: 709993976}
+  m_Layer: 0
+  m_Name: GrenadePoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &709993976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709993975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ed1372b71644f39eb6730cbda7aed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_00_Members.PTY.Scripts.GrenadePoolManager
+  grenadePrefab: {fileID: 8116126894024806989, guid: 5647cbc26e35d84438ac20bac435a0cc, type: 3}
+  grenadePoolFolder: {fileID: 1042337046}
+  fxPrefab: {fileID: 3712806519353603358, guid: c30b60ec99f81af40bd9183f32a7bf71, type: 3}
+  fxPoolFolder: {fileID: 1042337046}
+--- !u!4 &709993977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709993975}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &829653379
 GameObject:
   m_ObjectHideFlags: 0
@@ -79020,7 +79068,7 @@ PrefabInstance:
       objectReference: {fileID: 1042337046}
     - target: {fileID: 6557101543119760240, guid: 0b72cbcf6749a714b988c1ca31295d20, type: 3}
       propertyPath: isSuicideDrone
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6557101543119760240, guid: 0b72cbcf6749a714b988c1ca31295d20, type: 3}
       propertyPath: grenadePoolFolder
@@ -79156,3 +79204,4 @@ SceneRoots:
   - {fileID: 1981487164}
   - {fileID: 1161924897}
   - {fileID: 10378378}
+  - {fileID: 709993977}
