@@ -25,6 +25,10 @@ namespace _00_Members.KYM.Scripts.Soldiers
         [Header("거리별 사망 유형")]
         [SerializeField, Min(0f)] private float bodyExplosionDistance = 1.6f;
         [SerializeField, Min(0f)] private float headExplosionDistance = 3f;
+
+        [Header("거리 기반 분리 파츠 물리력")]
+        [SerializeField, Min(0f)] private float closeRangePartForce = 12f;
+        [SerializeField, Min(0f)] private float farRangePartForce = 4f;
         
         [Header("퀘스트 시스템")]
         [SerializeField] private QuestData targetQuest;
@@ -143,7 +147,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
         {
             Vector3 direction = damage.Direction.sqrMagnitude > 0f
                 ? damage.Direction
-                : transform.TransformDirection(defaultLocalForceDirection);
+                : GetDistanceDeathDirection();
 
             DeathType distanceDeathType;
             if (distance <= Mathf.Max(0f, bodyExplosionDistance))
@@ -163,8 +167,23 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 distanceDeathType,
                 damage.HitPoint,
                 direction,
-                defaultForce,
+                EvaluateDistancePartForce(distance),
                 null);
+        }
+
+        private Vector3 GetDistanceDeathDirection()
+        {
+            Vector3 localDirection = defaultLocalForceDirection.sqrMagnitude > 0f
+                ? defaultLocalForceDirection.normalized
+                : Vector3.forward * 0.2f + Vector3.up;
+            return transform.TransformDirection(localDirection).normalized;
+        }
+
+        private float EvaluateDistancePartForce(float distance)
+        {
+            float forceRange = Mathf.Max(bodyExplosionDistance, headExplosionDistance, 0.01f);
+            float distance01 = Mathf.Clamp01(distance / forceRange);
+            return Mathf.Lerp(closeRangePartForce, farRangePartForce, distance01);
         }
 
         public void Die(DeathType deathType)
