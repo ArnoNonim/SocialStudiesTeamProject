@@ -92,7 +92,7 @@ MonoBehaviour:
   m_IsGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 0
+  weight: 1
   sharedProfile: {fileID: 11400000, guid: 0536b517a0bd44b4682ae77eb3c6d026, type: 2}
 --- !u!1 &1118854545367022848
 GameObject:
@@ -202,7 +202,7 @@ MonoBehaviour:
     m_Bits: 32
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   m_IsGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 1
+  weight: 0
   sharedProfile: {fileID: 11400000, guid: 376e10769cb46c141add5219ebe0ea69, type: 2}
 --- !u!1 &8946212822517664821
 GameObject:
@@ -1253,10 +1253,6 @@ PrefabInstance:
     - target: {fileID: 1490775354140885387, guid: cb633b11d5ef79942b93368deb0e988b, type: 3}
       propertyPath: distanceFromCamera
       value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1490775354140885387, guid: cb633b11d5ef79942b93368deb0e988b, type: 3}
-      propertyPath: positionSmoothTime
-      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 3967964246111492680, guid: cb633b11d5ef79942b93368deb0e988b, type: 3}
       propertyPath: m_Pivot.x

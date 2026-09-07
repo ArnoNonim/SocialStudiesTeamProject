@@ -691,7 +691,7 @@ MonoBehaviour:
   fxPrefab: {fileID: 3712806519353603358, guid: c30b60ec99f81af40bd9183f32a7bf71, type: 3}
   fxPoolFolder: {fileID: 5183475386996437050}
   dropPos: {fileID: 2987690844918935663}
-  grenadeAmount: 2
+  grenadeAmount: 9999999
   isSuicideDrone: 0
 --- !u!65 &7612674053765180733
 BoxCollider:
