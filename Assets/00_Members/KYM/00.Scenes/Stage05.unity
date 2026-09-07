@@ -622,6 +622,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4225678588242395452, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
+      propertyPath: sceneData
+      value: 
+      objectReference: {fileID: 11400000, guid: 44e9e341b7be00644931bd639892e169, type: 2}
     - target: {fileID: 4954274653457217519, guid: b7e2f576d54edfb4a9fa196cee9c73d1, type: 3}
       propertyPath: m_text
       value: "\uC0AC\uC0B4 \uC644\uB8CC"
@@ -765,6 +769,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MaleCivilian
       objectReference: {fileID: 0}
+    - target: {fileID: 6683478368319680402, guid: 250003a294192ce4dad8417362b3e30f, type: 3}
+      propertyPath: targetQuest
+      value: 
+      objectReference: {fileID: 11400000, guid: 43c1d6d50bae72547855654e6cfe6247, type: 2}
     - target: {fileID: 7216438428139070512, guid: 250003a294192ce4dad8417362b3e30f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.224
@@ -822,6 +830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FeMaleCivilian
       objectReference: {fileID: 0}
+    - target: {fileID: 4845980888010277216, guid: 9c285dc85ba7cb64f9385202202decc6, type: 3}
+      propertyPath: targetQuest
+      value: 
+      objectReference: {fileID: 11400000, guid: 43c1d6d50bae72547855654e6cfe6247, type: 2}
     - target: {fileID: 7889723035899838266, guid: 9c285dc85ba7cb64f9385202202decc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.8139834

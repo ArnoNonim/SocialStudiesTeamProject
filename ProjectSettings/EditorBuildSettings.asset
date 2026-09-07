@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00_Members/JYG/Scenes/Stage04.unity
     guid: ddbaa36c4c452164587e0333d9b76794
+  - enabled: 1
+    path: Assets/00_Members/KYM/00.Scenes/Stage05.unity
+    guid: 87037939820f76649b4487fcd8133f95
+  - enabled: 1
+    path: Assets/00_Members/KYM/00.Scenes/EndingScene.unity
+    guid: 807775c3f71217a4bb83f2202ec697eb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

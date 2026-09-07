@@ -686,11 +686,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2560fc06bd0a4cb5884b0faf1a9f77cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_00_Members.PTY.Scripts.GrenadeDropper
-  grenadePrefab: {fileID: 8116126894024806989, guid: 5647cbc26e35d84438ac20bac435a0cc, type: 3}
-  grenadePoolFolder: {fileID: 5183475386996437050}
-  fxPrefab: {fileID: 3712806519353603358, guid: c30b60ec99f81af40bd9183f32a7bf71, type: 3}
-  fxPoolFolder: {fileID: 5183475386996437050}
   dropPos: {fileID: 2987690844918935663}
+  audioSource: {fileID: 0}
   grenadeAmount: 9999999
   isSuicideDrone: 0
 --- !u!65 &7612674053765180733
@@ -1069,6 +1066,7 @@ Transform:
   - {fileID: 7964625721648384595}
   - {fileID: 5536376157043269840}
   - {fileID: 5183475386996437050}
+  - {fileID: 1060110612463507702}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7098942137336625368
@@ -1517,3 +1515,65 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &3124203095270159573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6919315413373806741}
+    m_Modifications:
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.74933
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.034210205
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.62652016
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980763822011784167, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+      propertyPath: m_Name
+      value: GranadePoolmanager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+--- !u!4 &1060110612463507702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2732878850013965347, guid: a0a67e0b3d4316e4094c91bb0f95f13f, type: 3}
+  m_PrefabInstance: {fileID: 3124203095270159573}
+  m_PrefabAsset: {fileID: 0}

@@ -2225,6 +2225,7 @@ MonoBehaviour:
   head: {fileID: 8675777580879487896}
   localOffset: {x: 0, y: 0.035, z: 0.13}
   worldSize: {x: 0.3, y: 0.38}
+  mosaicMaterial: {fileID: 2100000, guid: 8f4e2c1d9a7b46a0b3c5d8e1f2a9476c, type: 2}
   blockSize: 12
   colorSteps: 10
   opacity: 1

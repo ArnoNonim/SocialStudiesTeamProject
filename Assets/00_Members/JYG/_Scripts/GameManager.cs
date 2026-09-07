@@ -36,6 +36,8 @@ namespace _00_Members.JYG._Scripts
 
         public IEnumerator SceneChange(string sceneName)
         {
+            
+            yield return new WaitForSeconds(1f);
             if (effector != null)
             {
                 List<ISceneEffector> effectors = effector.GetComponentsInChildren<ISceneEffector>().ToList();

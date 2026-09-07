@@ -17,6 +17,8 @@ namespace _00_Members.KYM.Scripts.Humans.Effects
         [SerializeField] private Vector2 worldSize = new Vector2(0.3f, 0.38f);
 
         [Header("모자이크")]
+        [Tooltip("빌드에서도 셰이더가 포함되도록 모자이크 머티리얼을 직접 참조합니다.")]
+        [SerializeField] private Material mosaicMaterial;
         [SerializeField, Range(2f, 64f)] private float blockSize = 12f;
         [SerializeField, Range(2f, 32f)] private float colorSteps = 10f;
         [SerializeField, Range(0f, 1f)] private float opacity = 1f;
@@ -205,18 +207,24 @@ namespace _00_Members.KYM.Scripts.Humans.Effects
                 return;
             }
 
-            Shader shader = Shader.Find(MosaicShaderName);
-            if (shader == null)
+            if (mosaicMaterial != null)
             {
-                Debug.LogError($"Face mosaic shader '{MosaicShaderName}' was not found.", this);
-                return;
+                _runtimeMaterial = new Material(mosaicMaterial);
+            }
+            else
+            {
+                Shader shader = Shader.Find(MosaicShaderName);
+                if (shader == null)
+                {
+                    Debug.LogError($"Face mosaic shader '{MosaicShaderName}' was not found.", this);
+                    return;
+                }
+
+                _runtimeMaterial = new Material(shader);
             }
 
-            _runtimeMaterial = new Material(shader)
-            {
-                name = $"{name} Face Mosaic (Runtime)",
-                hideFlags = HideFlags.HideAndDontSave
-            };
+            _runtimeMaterial.name = $"{name} Face Mosaic (Runtime)";
+            _runtimeMaterial.hideFlags = HideFlags.HideAndDontSave;
             _particleRenderer.sharedMaterial = _runtimeMaterial;
         }
 

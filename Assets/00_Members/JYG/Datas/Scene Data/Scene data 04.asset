@@ -15,4 +15,4 @@ MonoBehaviour:
   nextScene: Dialog
   quests:
   - {fileID: 11400000, guid: e9f9426d78791e142b5316052f070539, type: 2}
-  dialogData: {fileID: 11400000, guid: cc450e286eeaacf42ad6de19e77a67f8, type: 2}
+  dialogData: {fileID: 11400000, guid: ba0f1cfc53cba754d93f07aa2acb13e0, type: 2}
