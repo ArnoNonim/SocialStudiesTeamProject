@@ -145,18 +145,18 @@ namespace _00_Members.KYM.Scripts.Humans.Effects
                 new Color(0.3f, 0.004f, 0.006f, 0.96f),
                 new Color(0.07f, 0.001f, 0.002f, 0.9f));
             main.gravityModifier = 1.15f;
-            main.maxParticles = 84;
+            main.maxParticles = 180;
 
             ParticleSystem.EmissionModule emission = system.emission;
             emission.rateOverTime = 0f;
             emission.SetBursts(new[]
             {
-                new ParticleSystem.Burst(0f, 10, 15),
-                new ParticleSystem.Burst(0.2f, 7, 11),
-                new ParticleSystem.Burst(0.52f, 5, 9),
-                new ParticleSystem.Burst(1.05f, 4, 7),
-                new ParticleSystem.Burst(1.8f, 3, 5),
-                new ParticleSystem.Burst(2.7f, 2, 4)
+                new ParticleSystem.Burst(0f, 20, 30),
+                new ParticleSystem.Burst(0.2f, 14, 22),
+                new ParticleSystem.Burst(0.52f, 10, 18),
+                new ParticleSystem.Burst(1.05f, 8, 14),
+                new ParticleSystem.Burst(1.8f, 6, 10),
+                new ParticleSystem.Burst(2.7f, 4, 8)
             });
 
             ParticleSystem.ShapeModule shape = system.shape;
@@ -196,13 +196,13 @@ namespace _00_Members.KYM.Scripts.Humans.Effects
                 new Color(0.24f, 0.002f, 0.004f, 0.95f),
                 new Color(0.055f, 0.001f, 0.001f, 0.9f));
             main.gravityModifier = 1.9f;
-            main.maxParticles = 112;
+            main.maxParticles = 240;
 
             ParticleSystem.EmissionModule emission = system.emission;
             AnimationCurve taper = new AnimationCurve(
-                new Keyframe(0f, 9f),
-                new Keyframe(0.18f, 6.5f),
-                new Keyframe(0.55f, 3.2f),
+                new Keyframe(0f, 18f),
+                new Keyframe(0.18f, 13f),
+                new Keyframe(0.55f, 6.4f),
                 new Keyframe(1f, 0f));
             emission.rateOverTime = new ParticleSystem.MinMaxCurve(1f, taper);
 

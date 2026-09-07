@@ -2078,8 +2078,8 @@ MonoBehaviour:
   defaultLocalForceDirection: {x: 0, y: 0, z: 0}
   bodyExplosionDistance: 5
   headExplosionDistance: 10
-  closeRangePartForce: 5
-  farRangePartForce: 1
+  closeRangePartForce: 10
+  farRangePartForce: 3
 --- !u!114 &2114303859440067916
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,6 +26,7 @@ namespace _00_Members.KYM.Scripts.Humans.Effects
         [SerializeField] private Vector2 finalDiameter = new Vector2(1.15f, 1.75f);
         [SerializeField] private Vector2 growthDuration = new Vector2(6f, 10f);
         [SerializeField, Range(0, 4)] private int satelliteStains = 2;
+        [SerializeField, Min(1f)] private float bloodAmountScale = 1.4f;
         [SerializeField, Min(1f)] private float lifetime = 120f;
 
         private readonly List<GameObject> _spawnedPools = new List<GameObject>();
@@ -75,7 +76,7 @@ namespace _00_Members.KYM.Scripts.Humans.Effects
 
             float diameter = Random.Range(
                 Mathf.Min(finalDiameter.x, finalDiameter.y),
-                Mathf.Max(finalDiameter.x, finalDiameter.y));
+                Mathf.Max(finalDiameter.x, finalDiameter.y)) * bloodAmountScale;
             float duration = Random.Range(
                 Mathf.Min(growthDuration.x, growthDuration.y),
                 Mathf.Max(growthDuration.x, growthDuration.y));
@@ -95,7 +96,8 @@ namespace _00_Members.KYM.Scripts.Humans.Effects
                 duration * Random.Range(0.65f, 0.82f),
                 GetRandomPoolTile());
 
-            for (int i = 0; i < satelliteStains; i++)
+            int stainCount = Mathf.CeilToInt(satelliteStains * bloodAmountScale);
+            for (int i = 0; i < stainCount; i++)
             {
                 Vector2 offset2D = Random.insideUnitCircle.normalized * Random.Range(0.22f, 0.58f);
                 Vector3 offset = new Vector3(offset2D.x, 0f, offset2D.y);

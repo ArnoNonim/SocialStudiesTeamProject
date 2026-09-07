@@ -97,7 +97,7 @@ namespace _00_Members.KYM.Scripts.VFX
             if (coreBurst == null) return;
 
             ConfigureMain(coreBurst, 0.32f, 0.14f, 0.3f, 1.2f, 3.6f, 0.1f, 0.28f, 0.18f);
-            ConfigureBurst(coreBurst, 15, 24);
+            ConfigureBurst(coreBurst, 24, 38);
             ConfigureConeShape(coreBurst, 38f, 0.08f);
             ConfigureColor(coreBurst, _freshBlood, _darkBlood, 0.95f);
             ConfigureSize(coreBurst, 0.35f, 1f, 0.25f);
@@ -117,7 +117,7 @@ namespace _00_Members.KYM.Scripts.VFX
             if (impactMist == null) return;
 
             ConfigureMain(impactMist, 0.5f, 0.18f, 0.42f, 0.3f, 1.35f, 0.14f, 0.38f, 0.03f);
-            ConfigureBurst(impactMist, 26, 40);
+            ConfigureBurst(impactMist, 42, 64);
             ConfigureConeShape(impactMist, 58f, 0.1f);
             ConfigureColor(impactMist, new Color(0.25f, 0.008f, 0.01f), _darkBlood, 0.55f);
             ConfigureSize(impactMist, 0.25f, 1.1f, 1.35f);
@@ -130,7 +130,7 @@ namespace _00_Members.KYM.Scripts.VFX
             if (spray == null) return;
 
             ConfigureMain(spray, 0.72f, 0.3f, 0.68f, 4.5f, 8.5f, 0.045f, 0.12f, 0.75f);
-            ConfigureBurst(spray, 34, 52);
+            ConfigureBurst(spray, 55, 84);
             ConfigureConeShape(spray, 16f, 0.035f);
             ConfigureColor(spray, _freshBlood, _darkBlood, 1f);
             ConfigureSize(spray, 0.65f, 1f, 0.4f);
@@ -152,7 +152,7 @@ namespace _00_Members.KYM.Scripts.VFX
             if (droplets == null) return;
 
             ConfigureMain(droplets, 1.2f, 0.5f, 1.05f, 2.2f, 5.5f, 0.025f, 0.085f, 1.65f);
-            ConfigureBurst(droplets, 54, 78);
+            ConfigureBurst(droplets, 86, 124);
             ConfigureConeShape(droplets, 48f, 0.075f);
             ConfigureColor(droplets, _freshBlood, _darkBlood, 1f);
             ConfigureSize(droplets, 0.8f, 1f, 0.55f);
@@ -163,10 +163,10 @@ namespace _00_Members.KYM.Scripts.VFX
 
         private void ConfigureRadialExplosion()
         {
-            ConfigureRadialLayer(coreBurst, 46, 68, 2.8f, 6.2f, 0.18f, 0.4f, 0.16f, 0.42f, 0.12f);
-            ConfigureRadialLayer(impactMist, 68, 96, 0.8f, 2.5f, 0.24f, 0.58f, 0.2f, 0.62f, 0.03f);
-            ConfigureRadialLayer(spray, 82, 118, 6f, 11.5f, 0.34f, 0.86f, 0.045f, 0.14f, 0.68f);
-            ConfigureRadialLayer(droplets, 110, 150, 3.3f, 8.5f, 0.58f, 1.35f, 0.025f, 0.095f, 1.6f);
+            ConfigureRadialLayer(coreBurst, 72, 106, 2.8f, 6.2f, 0.18f, 0.4f, 0.16f, 0.42f, 0.12f);
+            ConfigureRadialLayer(impactMist, 106, 150, 0.8f, 2.5f, 0.24f, 0.58f, 0.2f, 0.62f, 0.03f);
+            ConfigureRadialLayer(spray, 128, 184, 6f, 11.5f, 0.34f, 0.86f, 0.045f, 0.14f, 0.68f);
+            ConfigureRadialLayer(droplets, 172, 234, 3.3f, 8.5f, 0.58f, 1.35f, 0.025f, 0.095f, 1.6f);
         }
 
         private static void ConfigureRadialLayer(ParticleSystem system, short minCount, short maxCount,
@@ -183,7 +183,7 @@ namespace _00_Members.KYM.Scripts.VFX
             main.startLifetime = new ParticleSystem.MinMaxCurve(minLifetime, maxLifetime);
             main.startSize = new ParticleSystem.MinMaxCurve(minSize, maxSize);
             main.gravityModifier = gravity;
-            main.maxParticles = 320;
+            main.maxParticles = 512;
 
             ConfigureBurst(system, minCount, maxCount);
             ConfigureSphereShape(system, 0.14f);

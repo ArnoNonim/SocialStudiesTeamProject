@@ -543,12 +543,12 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 new Color(0.25f, 0.002f, 0.004f, 0.98f),
                 new Color(0.055f, 0.001f, 0.001f, 0.96f));
             main.gravityModifier = 0.08f;
-            main.maxParticles = 52;
+            main.maxParticles = 110;
 
             ParticleSystem.EmissionModule emission = system.emission;
             emission.enabled = true;
-            emission.rateOverTime = new ParticleSystem.MinMaxCurve(14f, 22f);
-            emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 13, 20) });
+            emission.rateOverTime = new ParticleSystem.MinMaxCurve(28f, 44f);
+            emission.SetBursts(new[] { new ParticleSystem.Burst(0f, 26, 40) });
 
             ParticleSystem.ShapeModule shape = system.shape;
             shape.enabled = true;
@@ -597,17 +597,17 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 new Color(0.32f, 0.004f, 0.006f, 0.95f),
                 new Color(0.09f, 0.001f, 0.002f, 0.92f));
             main.gravityModifier = 0.75f;
-            main.maxParticles = 56;
+            main.maxParticles = 120;
 
             ParticleSystem.EmissionModule emission = system.emission;
             emission.enabled = true;
             emission.rateOverTime = 0f;
             emission.SetBursts(new[]
             {
-                new ParticleSystem.Burst(0f, 8, 12),
-                new ParticleSystem.Burst(0.16f, 5, 9),
-                new ParticleSystem.Burst(0.38f, 4, 7),
-                new ParticleSystem.Burst(0.75f, 3, 5)
+                new ParticleSystem.Burst(0f, 16, 24),
+                new ParticleSystem.Burst(0.16f, 10, 18),
+                new ParticleSystem.Burst(0.38f, 8, 14),
+                new ParticleSystem.Burst(0.75f, 6, 10)
             });
 
             ParticleSystem.ShapeModule shape = system.shape;
@@ -661,11 +661,11 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 new Color(0.28f, 0.003f, 0.005f, 0.95f),
                 new Color(0.065f, 0.001f, 0.001f, 0.92f));
             main.gravityModifier = 1.9f;
-            main.maxParticles = 56;
+            main.maxParticles = 120;
 
             ParticleSystem.EmissionModule emission = system.emission;
             emission.enabled = true;
-            emission.rateOverTime = new ParticleSystem.MinMaxCurve(5f, 9f);
+            emission.rateOverTime = new ParticleSystem.MinMaxCurve(10f, 18f);
 
             ParticleSystem.ShapeModule shape = system.shape;
             shape.enabled = true;
