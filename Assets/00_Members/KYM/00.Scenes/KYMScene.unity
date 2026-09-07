@@ -119,75 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &55329276
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1433102139}
-    m_Modifications:
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.49999988
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.49999988
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.49999994
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.018
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.003
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.49420127
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5057323
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.49420127
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.5057323
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7511647239997924269, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-      propertyPath: m_Name
-      value: FaceMosaicParticle
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
 --- !u!1 &80615887
 GameObject:
   m_ObjectHideFlags: 0
@@ -10084,11 +10015,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786780828}
   m_Mesh: {fileID: 4300002, guid: 6d9d85e59d7fe3b47b47faaf1da59776, type: 3}
---- !u!4 &893650371 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4176588127585378605, guid: 530aeee3321921743a7445e24318f7d9, type: 3}
-  m_PrefabInstance: {fileID: 55329276}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &967631258
 GameObject:
   m_ObjectHideFlags: 0
@@ -10525,11 +10451,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431457898}
   m_Mesh: {fileID: 4300006, guid: 6d9d85e59d7fe3b47b47faaf1da59776, type: 3}
---- !u!4 &1433102139 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 977933824205064575, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
-  m_PrefabInstance: {fileID: 4951408819815425417}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1444341634
 GameObject:
   m_ObjectHideFlags: 0
@@ -21016,7 +20937,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4823923254976809265, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
   m_PrefabInstance: {fileID: 4951408819815425417}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4951408819815425418}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72c0615019def8b448be3db7aea06be2, type: 3}
@@ -26731,45 +26652,9 @@ PrefabInstance:
       objectReference: {fileID: 1254511411}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 977933824205064575, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 893650371}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3582705853459273579, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4951408819815425419}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
---- !u!1 &4951408819815425418 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3582705853459273579, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
-  m_PrefabInstance: {fileID: 4951408819815425417}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4951408819815425419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4951408819815425418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c46c19dd9d0e4aad9c7c5c0763fd276c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_00_Members.KYM.Scripts.Humans.Effects.FaceMosaicParticle
-  head: {fileID: 4951408819815425420}
-  localOffset: {x: 0, y: 0.035, z: 0.13}
-  worldSize: {x: 0.3, y: 0.38}
-  blockSize: 12
-  colorSteps: 10
-  opacity: 1
-  sampleSceneColor: 1
-  fallbackTint: {r: 0.42, g: 0.44, b: 0.46, a: 1}
---- !u!4 &4951408819815425420 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8675777580879487896, guid: 3f2cccb3ef21fc94593fa39259665185, type: 3}
-  m_PrefabInstance: {fileID: 4951408819815425417}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4980979926039650176
 Transform:
   m_ObjectHideFlags: 0

@@ -428,16 +428,30 @@ namespace _00_Members.KYM.Scripts.Soldiers
         private static bool TryGetRendererBounds(GameObject target, out Bounds bounds)
         {
             Renderer[] targetRenderers = target.GetComponentsInChildren<Renderer>(true);
-            if (targetRenderers.Length == 0)
+            Renderer firstVisualRenderer = null;
+            for (int i = 0; i < targetRenderers.Length; i++)
+            {
+                if (!(targetRenderers[i] is ParticleSystemRenderer))
+                {
+                    firstVisualRenderer = targetRenderers[i];
+                    break;
+                }
+            }
+
+            if (firstVisualRenderer == null)
             {
                 bounds = default;
                 return false;
             }
 
-            bounds = targetRenderers[0].bounds;
-            for (int i = 1; i < targetRenderers.Length; i++)
+            bounds = firstVisualRenderer.bounds;
+            for (int i = 0; i < targetRenderers.Length; i++)
             {
-                bounds.Encapsulate(targetRenderers[i].bounds);
+                Renderer targetRenderer = targetRenderers[i];
+                if (targetRenderer != firstVisualRenderer && !(targetRenderer is ParticleSystemRenderer))
+                {
+                    bounds.Encapsulate(targetRenderer.bounds);
+                }
             }
 
             return true;
