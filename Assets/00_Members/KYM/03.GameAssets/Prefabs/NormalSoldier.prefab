@@ -2069,14 +2069,14 @@ MonoBehaviour:
   currentHealth: 0
   bodyExplosionEffect: {fileID: 0}
   headExplosionEffect: {fileID: 0}
-  detachedHeadPrefab: {fileID: 5507776186515577373, guid: 06701527b24fff04980875aec843a312, type: 3}
+  detachedHeadPrefab: {fileID: 0}
   headBone: {fileID: 977933824205064575}
   neckBone: {fileID: 1332519984550903426}
   spawnedObjectLifetime: 10
   defaultForce: 0
   defaultLocalForceDirection: {x: 0, y: 0, z: 0}
-  bodyExplosionDistance: 4
-  headExplosionDistance: 8
+  bodyExplosionDistance: 5
+  headExplosionDistance: 10
   targetQuest: {fileID: 0}
 --- !u!114 &2114303859440067916
 MonoBehaviour:

@@ -2945,8 +2945,8 @@ MonoBehaviour:
   spawnedObjectLifetime: 10
   defaultForce: 0
   defaultLocalForceDirection: {x: 0, y: 0, z: 0}
-  bodyExplosionDistance: 1.6
-  headExplosionDistance: 3
+  bodyExplosionDistance: 5
+  headExplosionDistance: 10
   targetQuest: {fileID: 0}
 --- !u!114 &4969268639907650908
 MonoBehaviour:
