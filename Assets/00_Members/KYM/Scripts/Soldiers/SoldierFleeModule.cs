@@ -104,6 +104,14 @@ namespace _00_Members.KYM.Scripts.Soldiers
             _animationPlayer = new FleeAnimationPlayer(_animator, transitionDuration);
         }
 
+        private void Start()
+        {
+            if (_soldier == null || !_soldier.IsDead)
+            {
+                PlayIdleAnimation();
+            }
+        }
+
         private void Update()
         {
             if (!canFlee || _soldier == null || _soldier.IsDead)
@@ -321,7 +329,7 @@ namespace _00_Members.KYM.Scripts.Soldiers
 
             if (_animator != null)
             {
-                _animationPlayer.Play(idleAnimation);
+                PlayIdleAnimation();
                 _animator.applyRootMotion = _initialApplyRootMotion;
             }
 
@@ -336,6 +344,11 @@ namespace _00_Members.KYM.Scripts.Soldiers
                 _rootRigidbody.useGravity = false;
                 _rootRigidbody.isKinematic = true;
             }
+        }
+
+        private void PlayIdleAnimation()
+        {
+            _animationPlayer?.Play(idleAnimation);
         }
 
         private void UpdateCalmState(float threatDistance, float approachSpeed)
